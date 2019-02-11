@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script>
+	<script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
+
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" type="image/png" href="imagens/favicon.png" />
+	<link rel="icon" type="image/x-icon" href="imagens/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="imagens/favicon.png">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<title>Deals</title>
+</head>
+<body id="main">
+	<header>
+		<div class="caixalogo">
+			<img src="imagens/logo.png">
+		</div>
+		<h1>do Condomínio</h1>
+		<a href="https://redeecominio.com.br/ecossistema/" target="_blank">
+			<div class="ecossistema">
+				<img src="imagens/ecossistema.png">
+			</div>
+		</a>
+	</header>
+
+	<main>
+		<div class="linha">
+			<div class="login">
+				<a class="index_btn" href="#login" onclick="document.getElementById('login').style.display='block'"><h1>Entrar</h1></a>
+			</div>
+			<div class="cond" style="background-image: url('imagens/condominios.jpg')">
+				<a href="perfil_sindico/sindico_cadastro_form.html">
+					<div class="index_btn">
+						<h2>Quero indicação de<br></h2><h1>Condomínios</h1>
+					</div>
+				</a>
+			</div>
+			<div class="sind" style="background-image: url('imagens/sindicos.jpg')">
+				<a href="perfil_solicitante/solicitante_cadastro_form.html">
+					<div class="index_btn">
+						<h2>Quero indicação de<br></h2><h1>Síndicos</h1>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="form-login" id="login">
+			<div class="login-form animated fade-in-down">
+				<div class="quadro-sobre quadro-login" style="box-shadow: 0px 0px 50px 0px #000; background-color: #eaeaea">
+					<div class="titulo-quadro titulo-quadro-login">
+						Login
+						<a onclick="document.getElementById('login').style.display='none'" title="Fechar">
+							<i class="fas fa-times-circle"></i>
+						</a>
+					</div>
+					<div class="text-quadro" style="text-align: left;">
+						<form  method="post" enctype="multpart/form-data" action="login.php">
+							<input type="text" name="login" required placeholder="E-mail ou Whatsapp" title="Seu e-mail, ou número do whatsspp">
+							<input type="password" name="senha" required placeholder="Senha" title="Sua senha">
+							<div class="linha-conteudo" style="margin: 20px 0; justify-content: center">
+								<button type="submit" class="submit" style="margin-right: 5px; margin-bottom: 5px">Login</button>
+								<a class="index_btn btn-reg" href="#main" onclick="document.getElementById('login').style.display='none'" style="margin-left: 5px;">Registrar</a>								
+							</div>
+							<a href="esqueci_senha_form.html" class="btn-esqueci">Esqueci a minha senha</a><br>
+						</form>											
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

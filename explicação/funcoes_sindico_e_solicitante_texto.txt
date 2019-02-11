@@ -1,0 +1,30 @@
+Index - 
+
+Principal -
+
+------------------------------------------------------------------------------------------------------------------
+
+FormCond - Formulário do solicitante
+FormAddCond - Formulário do condomínio
+FormVaga - Formulário de vagas
+
+PerfilCond - Perfil do solicitante com as informações dele (Editável pelo solicitante)
+PerfilCondominio - Página de perfil do condomínio (Editável pelo solicitante)
+InfoVaga - Informações sobre a vaga (Editável pelo solicitante)
+
+CondominiosCond - Painel de Condominios do Solicitante
+PainelVagasCond - Painel das Vagas do Solicitante
+CandidaturasCond - Painel de Candidatos para as vagas do Solicitante
+
+------------------------------------------------------------------------------------------------------------------
+
+FormSind - Formulário do síndico
+
+PerfilSind - Perfil do sídico com as informações dele (Editável pelo síndico)
+
+Condominios - Lista de todos os condomínio cadastrados no sistema
+PainelVagas - Lista de todas as vagas cadastrados no sistema
+Candidaturas - Listas de todas as candidaturas do síndico
+
+InfoVaga - Informações sobre a vaga com botão de inscrição
+ConfirmVaga - Página de confirmação de inscrição
