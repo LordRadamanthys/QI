@@ -148,17 +148,48 @@
         }
     }
     
+    public function MinhasVagas($id_usuario){
+        $mysqli = $this->conectar();
+        $result=0;
+        $result2=0;
+        $sql="SELECT * FROM candidato_vaga WHERE id_usuario = '$id_usuario'";//seleciona dados do condominio com base no id recebido
+        
+        if ($this->result2=$mysqli->query($sql)) {
+            
+            $rowSeguindo=mysqli_fetch_assoc($this->result2);
+
+        return $rowSeguindo;
+        } else {
+            echo "Erro ao Listar minhas vagas";
+        }
+    }
+
+    public function listarMinhasVagas($id){
+        $mysqli = $this->conectar();
+        $result2=0;
+        $sqlVaga="SELECT * FROM vagas_condominio WHERE id = '$id'";//seleciona dados do condominio com base no id recebido
+        
+        if ($this->result=$mysqli->query($sqlVaga)) {
+            //$this->$result2 = $mysqli->query($sqlCond);
+
+            $rowVaga=mysqli_fetch_assoc($this->result);
+            //$rowCond = mysqli_fetch_assoc($this->$result2);
+
+        return $rowVaga;
+        } else {
+            echo "Erro ao Listar! vagas";
+        }
+    }
 
 
     public function listarDadosSolicitante($id){
         $mysqli = $this->conectar();
         $result2=0;
-        //$sqlCond="SELECT * FROM condominio WHERE id_solicitante = '$id'";//seleciona dados do condominio com base no id recebido
+        
         $sqlCondSolicitante="SELECT * FROM solicitante_cond WHERE id = '$id'";//seleciona solicitante do usuario com base no id recebido
         
         if ($this->result=$mysqli->query($sqlCondSolicitante)) {
-            //$this->$result2 = $mysqli->query($sqlCond);
-
+            
             $rowSolicitante=mysqli_fetch_assoc($this->result);
             $rowCond = $this->listarCondominios($id);
             //$rowCond = mysqli_fetch_assoc($this->$result2);
@@ -232,6 +263,8 @@
             echo "Erro ao Listar! vagas";
         }
     }
+
+    
 
     public function listarVagasCondominiosIdCond($id){
         $mysqli = $this->conectar();

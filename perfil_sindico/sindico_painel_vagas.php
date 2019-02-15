@@ -80,7 +80,7 @@ $dados_usuario_esco = $usu[2];
 							<li><a href="sindico_principal.php"><i class="far fa-user"></i> Principal</a></li>
 							<li><a href="sindico_painel_vagas.php"><i class="fas fa-clipboard"></i> Vagas</a></li>
 							<li><a href="sindico_painel_seguindo.php"><i class="far fa-building"></i> Seguindo</a></li>
-							<li><a href="sindico_painel_condominio.php"><i class="fas fa-building"></i> Condomínios</a></li>
+							<!--li><a href="sindico_painel_condominio.php"><i class="fas fa-building"></i> Condomínios</a></li-->
 							<li><a href="sindico_candidaturas.php"><i class="far fa-folder"></i> Minhas Candidaturas</a></li>
 							<li><a href="sindico_mensagem.php"><i class="far fa-envelope"></i> Mensagens</a></li>
 						</ul>
@@ -151,7 +151,6 @@ $dados_usuario_esco = $usu[2];
 						$result = $con->resultcondominio;  
 						if($condominios > 0){   
                              do{
-                             //$nome_cond = $con->listarCondominiosPerfil($vagas['id_condominio']);
                     ?>
 									<a href="sindico_info_condominio.php?h=<?=  $condominios['id'] ?>">
 										<div class="table-img" style="background-image: url(../src/usuarios_cond/<?= $condominios['id']?>/foto/perfil.jpg);"></div>

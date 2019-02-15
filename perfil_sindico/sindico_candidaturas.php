@@ -1,21 +1,12 @@
 <?php
 require('../php/conexao.php');
-//include('conexao.php');
 $con = new Banco();
 $con->verificaLoginCandidato();
 
 $usu = $con->listarDadosSind($_SESSION['UsuarioID']);
-
-$condominios = $con->listarTodosCondominios();
-
-$condominio= $con->listarCondominios($_SESSION['UsuarioID']);
-
+$MinhasVagas = $con->MinhasVagas($_SESSION['UsuarioID']);
 $seguindo = $con->pegaSeguindo($_SESSION['UsuarioID']);
-
-
-$dados_usuario = $usu[0];
-$dados_usuario_exp = $usu[1];
-$dados_usuario_esco = $usu[2];
+$condominios = $con->listarTodosCondominios();
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +44,25 @@ $dados_usuario_esco = $usu[2];
 </head>
 <body>
 
-	
+	<!-- <a onclick="document.getElementById('faleconosco').style.display='block'" title="Fale Conosco">
+		<div class="faleconoscobtn" id="btnfale">
+			<div class="fale" style="color: #fff; background-color: #000;">Fale conosco</div>
+		</div>
+	</a>
+	<div id="faleconosco" class="modal">
+        <div class="campo animated bounceInRight"  style="background-color: #fff; color:#000;">
+            <i class="fas fa-times-circle" id="fechar" onclick="document.getElementById('faleconosco').style.display='none'" title="Fechar"></i><br><br>
+            <div class="texto">
+				<a href="https://wa.me/551122271595?text=Não%20quero%20em%20perder%20mais%20campanhas%20do%20Ecossistema" target="_blank" class="sociais-btn" title="whatsapp"><i class="fab fa-whatsapp"></i></a><br>
+				<a href="https://m.me/ecossistemacondominial" target="_blank" class="sociais-btn" title="messenger"><i class="fab fa-facebook-messenger"></i></a><br>
+				<a href="https://br.linkedin.com/company/ecossistemacondominial" target="_blank" class="sociais-btn" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
+				<a href="https://www.facebook.com/ecossistemacondominial/" target="_blank" class="sociais-btn" title="facebook"><i class="fab fa-facebook-f"></i></a>
+				<a href="https://www.youtube.com/channel/UCkTVUd0vOs-aKbUxPB_gO5Q?view_as=subscriber" target="_blank" class="sociais-btn" title="youtube"><i class="fab fa-youtube"></i></a>
+				<a href="https://redeecominio.com.br/ecossistema/" target="_blank" class="sociais-btn" title="site"><i class="fas fa-globe"></i></a>
+			</div>
+		</div>
+	</div> -->
+
 	<header>
 		<div class="caixalogo">
 			<img src="imagens/logo.png">
@@ -84,7 +93,7 @@ $dados_usuario_esco = $usu[2];
 					<div class="img-perfil" style="background-image: url(../src/usuarios_sind/<?= $_SESSION['UsuarioID'] ?>/foto/1.jpg);"></div>
 					<nav class="menu2">
 						<ul>
-							<li><a href="sindico_principal.php"><i class="far fa-user"></i> Principal</a></li>
+							<li><a href="sindico_principal.html"><i class="far fa-user"></i> Principal</a></li>
 							<li><a href="sindico_painel_vagas.php"><i class="fas fa-clipboard"></i> Vagas</a></li>
 							<li><a href="sindico_painel_seguindo.php"><i class="far fa-building"></i> Seguindo</a></li>
 							<!--li><a href="sindico_painel_condominio.php"><i class="fas fa-building"></i> Condomínios</a></li-->
@@ -102,7 +111,7 @@ $dados_usuario_esco = $usu[2];
 								<i class="fas fa-arrow-alt-circle-left"></i> Voltar
 							</div>
 						</a>
-						<h2 class="caminho-ativo"><i class="far fa-building"></i> Seguindo</h2>
+						<h2 class="caminho-ativo"><i class="fas fa-clipboard"></i> Candidaturas</h2>
 					</div>
 					<div class="linha-conteudo">
 						<div class="vagas-opcao principal">
@@ -110,7 +119,15 @@ $dados_usuario_esco = $usu[2];
   								<a class="filtro-icone" id="filtro-btn" onclick="AbrirFiltro()" title="Filtros"><i class="fas fa-filter"></i></a> 
 								<div class="filtro" id="filtro">
 									<div class="caixa-drop">
-										<button class="drop-btn">Localização <i class="fa fa-caret-down"></i></button>
+										<button class="drop-btn">Vagas para <i class="fa fa-caret-down"></i></button>
+    									<div class="drop-conteudo">
+      										<a href="#">Síndicos</a>
+      										<a href="#">Gerentes Predial</a>
+      										<a href="#">Administradores</a>
+    									</div>
+  									</div> 
+									<div class="caixa-drop">
+										<button class="drop-btn">Localidade <i class="fa fa-caret-down"></i></button>
     									<div class="drop-conteudo">
       										<a href="#">São Paulo - Capital</a>
       										<a href="#">São Paulo - Litoral</a>
@@ -118,25 +135,25 @@ $dados_usuario_esco = $usu[2];
     									</div>
   									</div>
 								</div>
-
-								<div class="quadros-titulo"><span class="titulo-perfil"><h2>Condomínios que eu sigo</h2></span></div>
+								<div class="quadros-titulo"><span class="titulo-perfil"><h2>Minhas Candidaturas</h2></span></div>
 								<div class="quadros">
 						<?php
 						$result = $con->result;  
-						if($seguindo > 0){   
+						if($MinhasVagas > 0){   
                              do{
-                             $nome_cond = $con->listarCondominiosPerfil($seguindo['id_condominio']);
+                             $aux = $con->listarMinhasVagas($MinhasVagas['id_vaga']);
+                             $nome_cond = $con->listarCondominiosPerfil($MinhasVagas['id_condominio']);
                     	?>
 									<div class="quadro" >
-										<a href="sindico_info_condominio.php?h=<?= $nome_cond['id'] ?>">
+										<a href="sindico_info_vaga.php?h=<?= $MinhasVagas['id_condominio'] ?>&v=<?= $MinhasVagas['id_vaga'] ?>">
 											<div class="quadro-img" style="background-image: url(../src/usuarios_cond/<?=$nome_cond['id']?>/foto/perfil.jpg);"></div>
-											<div class="quadro-txt"><div><?=  $nome_cond['nome_cond'] ?></div></div>
+											<div class="quadro-txt"><div><?=$aux['posicao'] ?><hr><?=$nome_cond['nome_cond'] ?></div></div>
 										</a>
 									</div>
-						<?php }while ($seguindo = mysqli_fetch_assoc($result)); 
+						<?php }while ($MinhasVagas = mysqli_fetch_assoc($result)); 
 						}else{
-							echo "";
-						}
+							echo "<center>Nenhuma vaga disponivel</center>";
+						}$todasVagas = $con->listarTodasVagas();
 							?>
 								</div>
 							</div>
@@ -146,35 +163,42 @@ $dados_usuario_esco = $usu[2];
 								<div class="txt-center"><span class="titulo-perfil titulo-table">Últimas vagas</span></div>
 								<div class="table">
 						<?php
-						$seguindo = $con->pegaSeguindo($_SESSION['UsuarioID']);
 						$result = $con->result;  
-						if($seguindo > 0){   
+						$todasVagas = $con->listarTodasVagas();
+						if($todasVagas > 0){   
                              do{
-                             $vagas= $con->listarVagasCondominiosSeguindo($seguindo['id_condominio']);
-                             $nome_cond = $con->listarCondominiosPerfil($seguindo['id_condominio']);
+                             
+                             $nome_cond = $con->listarCondominiosPerfil($todasVagas['id_condominio']);
                     	?>
-									<a href="sindico_info_vaga.php?h=<?= $vagas['id_condominio'] ?>&v=<?= $vagas['id'] ?>">
+									<a href="sindico_info_vaga.php?h=<?= $nome_cond['id'] ?>&v=<?= $todasVagas['id'] ?>">
 										<div class="table-img" style="background-image: url(../src/usuarios_cond/<?=$nome_cond['id']?>/foto/perfil.jpg);"></div>
-										<div class="table-txt"><div><?=  $nome_cond['nome_cond'] ?><hr><?= $vagas['posicao'] ?></div></div>
+										<div class="table-txt"><div><?=$todasVagas['posicao']?><hr><?=$nome_cond['nome_cond']?></div></div>
 									</a>
-						<?php }while ($seguindo = mysqli_fetch_assoc($result)); 
+						<?php }while ($todasVagas = mysqli_fetch_assoc($result)); 
 						}else{
-							echo "";
+							echo "<center>Nenhuma vaga disponivel</center>";
 						}
-						?>			
+							?>
+								</div>
+								<div class="txt-center"><span class="titulo-perfil titulo-table">Condomínios</span></div>
+								<div class="table">
+						<?php
+						$result = $con->resultcondominio;  
+						if($condominios > 0){   
+                             do{
+                    	?>
+									<a href="sindico_info_condominio.php?h=<?= $condominios['id'] ?>">
+										<div class="table-img" style="background-image: url(../src/usuarios_cond/<?=$condominios['id']?>/foto/perfil.jpg);"></div>
+										<div class="table-txt"><div><?= $condominios['nome_cond'] ?></div></div>
+									</a>
+
+						<?php }while ($condominios = mysqli_fetch_assoc($result)); 
+						}else{
+							echo "<center>Nenhuma condominio disponivel</center>";
+						}
+					?>
 									
 								</div>
-								<!--div class="txt-center"><span class="titulo-perfil titulo-table">Condomínios</span></div>
-								<div class="table">
-									<a href="sindico_info_condominio.html">
-										<div class="table-img" style="background-image: url(imagens/cond-img.jpg);"></div>
-										<div class="table-txt"><div>Condomínio Costa</div></div>
-									</a>
-									<a href="sindico_info_condominio.html">
-										<div class="table-img" style="background-image: url(imagens/cond-img-2.jpg);"></div>
-										<div class="table-txt"><div>Condomínio Villas</div></div>
-									</a>
-								</div-->
 							</div>
 						</div>
 					</div>
