@@ -87,7 +87,7 @@ $dados_usuario_esco = $usu[2];
 							<li><a href="sindico_principal.php"><i class="far fa-user"></i> Principal</a></li>
 							<li><a href="sindico_painel_vagas.php"><i class="fas fa-clipboard"></i> Vagas</a></li>
 							<li><a href="sindico_painel_seguindo.php"><i class="far fa-building"></i> Seguindo</a></li>
-							<!--li><a href="sindico_painel_condominio.php"><i class="fas fa-building"></i> Condomínios</a></li-->
+							<li><a href="sindico_painel_condominio.php"><i class="fas fa-building"></i> Condomínios</a></li>
 							<li><a href="sindico_candidaturas.php"><i class="far fa-folder"></i> Minhas Candidaturas</a></li>
 							<li><a href="sindico_mensagem.php"><i class="far fa-envelope"></i> Mensagens</a></li>
 						</ul>
@@ -147,20 +147,26 @@ $dados_usuario_esco = $usu[2];
 								<div class="table">
 						<?php
 						$seguindo = $con->pegaSeguindo($_SESSION['UsuarioID']);
-						$result = $con->result;  
-						if($seguindo > 0){   
+						$result = $con->result; 
+						   
                              do{
                              $vagas= $con->listarVagasCondominiosSeguindo($seguindo['id_condominio']);
                              $nome_cond = $con->listarCondominiosPerfil($seguindo['id_condominio']);
+                             if($vagas>0){
+                             	$result2 = $con->result2;
+                             	do{
                     	?>
 									<a href="sindico_info_vaga.php?h=<?= $vagas['id_condominio'] ?>&v=<?= $vagas['id'] ?>">
 										<div class="table-img" style="background-image: url(../src/usuarios_cond/<?=$nome_cond['id']?>/foto/perfil.jpg);"></div>
 										<div class="table-txt"><div><?=  $nome_cond['nome_cond'] ?><hr><?= $vagas['posicao'] ?></div></div>
 									</a>
-						<?php }while ($seguindo = mysqli_fetch_assoc($result)); 
-						}else{
+						<?php
+					}while ( $vagas = mysqli_fetch_assoc($result2));
+						 }else{
 							echo "";
-						}
+						} 
+					}while ($seguindo = mysqli_fetch_assoc($result)); 
+						
 						?>			
 									
 								</div>

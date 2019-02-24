@@ -15,50 +15,14 @@
 	<link rel="apple-touch-icon-precomposed" href="imagens/favicon.png">
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-	<title>Deals</title>
+	<title>Página principal - ADM - Qi do condomínio</title>
   	<script type="text/javascript">
 		function Voltar() {
   			window.history.back();
 		}
-		function AbrirEmail() {
-			var acc = document.getElementsByClassName("mensagem");
-			var i;
-
-			for (i = 0; i < acc.length; i++) {
-		  		acc[i].addEventListener("click", function() {
-		    		this.classList.toggle("active");
-		    		var conteudo = this.nextElementSibling;
-		    		if (conteudo.style.display === "block") {
-		      			conteudo.style.display = "none";
-		    		} else {
-		      			conteudo.style.display = "block";
-		    		}
-		  		});
-			}
-		}
   	</script>
 </head>
-<body>
-
-	<!-- <a onclick="document.getElementById('faleconosco').style.display='block'" title="Fale Conosco">
-		<div class="faleconoscobtn" id="btnfale">
-			<div class="fale" style="color: #fff; background-color: #000;">Fale conosco</div>
-		</div>
-	</a>
-	<div id="faleconosco" class="modal">
-        <div class="campo animated bounceInRight"  style="background-color: #fff; color:#000;">
-            <i class="fas fa-times-circle" id="fechar" onclick="document.getElementById('faleconosco').style.display='none'" title="Fechar"></i><br><br>
-            <div class="texto">
-				<a href="https://wa.me/551122271595?text=Não%20quero%20em%20perder%20mais%20campanhas%20do%20Ecossistema" target="_blank" class="sociais-btn" title="whatsapp"><i class="fab fa-whatsapp"></i></a><br>
-				<a href="https://m.me/ecossistemacondominial" target="_blank" class="sociais-btn" title="messenger"><i class="fab fa-facebook-messenger"></i></a><br>
-				<a href="https://br.linkedin.com/company/ecossistemacondominial" target="_blank" class="sociais-btn" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
-				<a href="https://www.facebook.com/ecossistemacondominial/" target="_blank" class="sociais-btn" title="facebook"><i class="fab fa-facebook-f"></i></a>
-				<a href="https://www.youtube.com/channel/UCkTVUd0vOs-aKbUxPB_gO5Q?view_as=subscriber" target="_blank" class="sociais-btn" title="youtube"><i class="fab fa-youtube"></i></a>
-				<a href="https://redeecominio.com.br/ecossistema/" target="_blank" class="sociais-btn" title="site"><i class="fas fa-globe"></i></a>
-			</div>
-		</div>
-	</div> -->
-
+<body id="mensagem">
 	<header>
 		<div class="caixalogo">
 			<img src="imagens/logo.png">
@@ -83,78 +47,96 @@
 					</div>
 					<nav class="menu2" style="margin-top: 10px;">
 						<ul>
-							<li><a href="adm_principal.html"><i class="far fa-user"></i> Principal</a></li>
-							<li><a href="adm_principal.html#vagas_analise"><i class="fas fa-clipboard"></i> Vagas</a></li>
-							<li><a href="adm_principal.html#cond_analise"><i class="fas fa-building"></i> Condomínios</a></li>
-							<li><a href="adm_mensagens.html"><i class="far fa-envelope"></i> Mensagens</a></li>
-							<li><a href=""><i class="fas fa-sign-out-alt"></i> Sair</li>							
+							<li><a href="adm_principal.html"><i class="fas fa-th"></i> Principal</a></li>
+							<li class="active"><a href="adm_mensagens.html#mensagem"><i class="far fa-envelope"></i> Mensagens</a></li>
+							<li><a href="adm_vagas.html#vaga"><i class="fas fa-clipboard"></i> Vagas</a></li>
+							<li><a href="adm_sindicos.html#candidato"><i class="far fa-user"></i> Síndico</a></li>
+							<li><a href="adm_condominios.html#condominio"><i class="fas fa-building"></i> Condomínios</a></li>
+							<li><a href="adm_solicitantes.html#solicitante"><i class="fas fa-user"></i> Solicitante</a></li>
+							<li><a href="adm_configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+							<li><a href=""><i class="fas fa-sign-out-alt"></i> Sair</a></li>							
 						</ul>
 					</nav>
 				</div>
 			</div>
 			<div class="cont-conteudo">
-				<div class="c1">
-					<div class="caminho">
-						<a onclick="Voltar()">
-							<div class="index_btn btn-caminho">
-								<i class="fas fa-arrow-alt-circle-left"></i> Voltar
-							</div>
-						</a>
-						<h2 class="caminho-ativo"><i class="far fa-envelope"></i> Mensagens</h2>
+				<div class="pop-up-excluir" id="excluir">
+					<div class="excluir-txt">
+						Você tem certeza que quer excluir o (Condomínio)?
+						<form>
+							<button type="submit" style="margin-bottom: 10px">Sim</button>
+							<button type="reset" onclick="document.getElementById('excluir').style.display='none'">Não</button>
+						</form>
 					</div>
+				</div>
+				<div class="c1">
 					<div class="linha-conteudo">
-						<div class="vaga">
-							<div class="vagas-opcao-cont">
-								<div class="texto texto-infos-vagas">
-									<div class="linha-conteudo">
-										<div class="vaga">
-											<div class="caixa-emails" style="background-color: #c7c7c7">
-												<div class="quadros-titulo"><span class="titulo-perfil" style="color: #009900"><h2>Caixa de entrada</h2></span></div>
-												<div oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-													<div class="mensagem" onclick="AbrirEmail()">
-														<div class="e-mail-contato">
-															E-mail<br>
-															<span class="data-mensagem">16:04 - 31/01/2019</span>
-														</div>
-													</div>
-													<div class="mensagem-cont animated fade-in-dow">
-														<div class="email-conteudo">
-															<div class="e-mails">
-																<div class="email-mensagem-contato">Mensagem Contato<br><span class="data-mensagem">16:04 - 31/01/2019</span></div>
-																<div class="email-mensagem-perfil">Mensagem Pessoal<br><span class="data-mensagem">16:04 - 31/01/2019</span></div>
-																<div class="email-mensagem-contato">Mensagem Contato<br><span class="data-mensagem">16:04 - 31/01/2019</span></div>
-															</div>
-															<div class="e-mail-mesnagem">
-																<form style="display: inline-block; text-align: center; margin-top: -2px;" >
-																	<textarea name="mensagem" placeholder="Escreva uma mensagem"></textarea>
-																	<button type="submit" class="submit" style="margin-top: 10px;">Enviar</button>
-																</form>
-															</div>
-														</div>
-													</div>
-													<div class="mensagem" onclick="AbrirEmail()">
-														<div class="e-mail-contato">
-															E-mail<br>
-															<span class="data-mensagem">16:04 - 31/01/2019</span>
-														</div>
-													</div>
-													<div class="mensagem-cont animated fade-in-dow">
-														<div class="email-conteudo">
-															<div class="e-mails">
-																<div class="email-mensagem-contato">Mensagem Contato<br><span class="data-mensagem">16:04 - 31/01/2019</span></div>
-																<div class="email-mensagem-perfil">Mensagem Pessoal<br><span class="data-mensagem">16:04 - 31/01/2019</span></div>
-																<div class="email-mensagem-contato">Mensagem Contato<br><span class="data-mensagem">16:04 - 31/01/2019</span></div>
-															</div>
-															<div class="e-mail-mesnagem">
-																<form style="display: inline-block; text-align: center; margin-top: -2px;" >
-																	<textarea name="mensagem" placeholder="Escreva uma mensagem"></textarea>
-																	<button type="submit" class="submit" style="margin-top: 10px;">Enviar</button>
-																</form>
-															</div>
-														</div>
-													</div>
+						<div class="vaga principal">
+							<div class="texto "> <!-- texto-infos-vagas"> -->
+								<div class="vagas-opcao-cont">
+									<div class="quadros quadros-2">
+										<div class="quadro active" style="margin-bottom: 0;">
+											<a href="adm_mensagens.html#mensagem">
+												<div class="quadro-img" style="background-color: #009900; filter: none"><i class="far fa-envelope"></i></div>
+												<div class="quadro-txt" style="background-color: #006600;"><div>Mensagens</div></div>
+											</a>
+										</div>
+										<div class="caixa-emails" style="margin: 0 0.6%; margin-bottom: 10px; width: 100%">
+											<div class="quadros-titulo"><span class="titulo-perfil" style="color: #009900"><h2>Caixa de entrada</h2></span></div>
+											<a href="adm_caixa_mensagens.html">
+												<div class="mensagem">
+													<div class="contagem_mensagem">1</div>
+													<b>Nome do usuário - Tipo de usuário</b><br>
+													<span class="texto-mensagem">Inicio do texto (20 palavras)</span><br>
+													<span class="data-mensagem">Hora e minuto - Data</span>
 												</div>
-											</div>
+											</a>
+											<a href="adm_caixa_mensagens.html">
+												<div class="mensagem">
+													<div class="contagem_mensagem">2</div>
+													<b>Nome do usuário - Tipo de usuário</b><br>
+													<span class="texto-mensagem">Inicio do texto (20 palavras)</span><br>
+													<span class="data-mensagem">Hora e minuto - Data</span>
+												</div>
+											</a>
+											<a href="adm_caixa_mensagens.html">
+												<div class="mensagem">
+													<div class="contagem_mensagem">1</div>
+													<b>Nome do usuário - Tipo de usuário</b><br>
+													<span class="texto-mensagem">Inicio do texto (20 palavras)</span><br>
+													<span class="data-mensagem">Hora e minuto - Data</span>
+												</div>
+											</a>
+										</div>
+										<div class="quadro">
+											<a href="adm_vagas.html#vaga">
+												<div class="quadro-img"><i class="fas fa-clipboard"></i></div>
+												<div class="quadro-txt"><div>Vagas</div><i class="fas fa-angle-down seta"></i></div>
+											</a>
+										</div>
+										<div class="quadro">
+											<a href="adm_sindicos.html#candidato">
+												<div class="quadro-img"><i class="far fa-user"></i></div>
+												<div class="quadro-txt"><div>Candidatos</div><i class="fas fa-angle-down seta"></i></div>
+											</a>
+										</div>
+										<div class="quadro">
+											<a href="adm_condominios.html#condominio">
+												<div class="quadro-img"><i class="fas fa-building"></i></div>
+												<div class="quadro-txt"><div>Condomínios</div><i class="fas fa-angle-down seta"></i></div>
+											</a>
+										</div>
+										<div class="quadro" >
+											<a href="adm_solicitantes.html#solicitante">
+												<div class="quadro-img"><i class="fas fa-user"></i></div>
+												<div class="quadro-txt"><div>Solicitante</div><i class="fas fa-angle-down seta"></i></div>
+											</a>
+										</div>
+										<div class="quadro">
+											<a href="adm_configuracoes.html">
+												<div class="quadro-img"><i class="fas fa-cog"></i></div>
+												<div class="quadro-txt"><div>Configurações</div></div>
+											</a>
 										</div>
 									</div>
 								</div>

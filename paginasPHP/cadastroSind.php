@@ -6,8 +6,8 @@ $con = new Banco();
 	if(!empty($_POST['nome'])  && !empty($_POST['senha']) && !empty($_POST['email'])){
         //usuario sindico
 		$nome = isset($_POST['nome']) ? $_POST['nome'] : '';
-		$senha = isset($_POST['senha']) ? $_POST['senha'] : '';
-		$email = isset($_POST['email']) ? $_POST['email'] : '';
+		$senha = isset($_POST['senha']) ? base64_encode(sha1('tomaLixo'. $_POST['senha'])) : '';
+		$email = isset($_POST['email']) ? strtolower($_POST['email']) : '';
         $tel_cel = isset($_POST['tel-cel']) ? $_POST['tel-cel'] : '';
         $nivel = isset($_POST['nivel']) ? $_POST['nivel'] : '';
         
@@ -41,7 +41,7 @@ $con = new Banco();
         $cidade = isset($_POST['cidade']) ? $_POST['cidade'] : '';
         $endereco = isset($_POST['endereco']) ? $_POST['endereco'] : '';
         $complemento = isset($_POST['complemento']) ? $_POST['complemento'] : '';
-        $numero_casa = isset($_POST['numero_casa']) ? $_POST['numero_casa'] : '';
+        $numero_casa = isset($_POST['numero']) ? $_POST['numero'] : '';
 
         //cursos
         $nome_curso = isset($_POST['nome_curso']) ? $_POST['nome_curso'] : '';
@@ -60,13 +60,12 @@ $con = new Banco();
         $fim = isset($_POST['fim_empresa']) ? $_POST['fim_empresa'] : '';
         $situacao = isset($_POST['situacao']) ? $_POST['situacao'] : '';
 
-
+        $liberado ="nao";
 	
 
-		$sql = "INSERT INTO usuarios (nome, email, telefone, senha, cpf, telefone_fixo, data_aniversario, sexo, apresentacao, idiomas, link_video, cep, pais, estado, cidade, endereco, complemento, numero_casa,curriculo,nivel) 
-                            VALUES('$nome','$email','$tel_cel','$senha','$cpf','$telefone_fix','$data_aniversario','$sexo','$apresentacao','$idiomas','$link_video','$cep','$pais','$estado','$cidade','$endereco','$complemento','$numero_casa','$curriculo','$nivel')";
-		//$sql2 = "INSERT INTO exp_profissional (nome_empresa,cargo) VALUES('$empresa','$cargo')";
-		//$login = "SELECT `id`, `nome` FROM `usuarios` WHERE (`email` = '".$email ."') AND (`senha` = '". $senha ."')  LIMIT 1";
+		$sql = "INSERT INTO usuarios (nome, email, telefone, senha, cpf, telefone_fixo, data_aniversario, sexo, apresentacao, idiomas, link_video, cep, pais, estado, cidade, endereco, complemento, numero_casa,curriculo,nivel,liberado) 
+                            VALUES('$nome','$email','$tel_cel','$senha','$cpf','$telefone_fix','$data_aniversario','$sexo','$apresentacao','$idiomas','$link_video','$cep','$pais','$estado','$cidade','$endereco','$complemento','$numero_casa','$curriculo','$nivel','$liberado')";
+		
         $con->cadastroUsuario($sql, $nome_empresa, $cargo,$inicio,$fim, $situacao,$array_curriculo, $array_foto, $array_curso);
         
 	}else{

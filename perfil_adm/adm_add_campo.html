@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script>
+	<script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
+
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" type="image/png" href="imagens/favicon.png" />
+	<link rel="icon" type="image/x-icon" href="imagens/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="imagens/favicon.png">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<title>Adicionar campo - ADM - Qi do condomínio</title>
+  	<script type="text/javascript">
+		function Voltar() {
+  			window.history.back();
+		}
+  	</script>
+</head>
+<body>
+	<header>
+		<div class="caixalogo">
+			<img src="imagens/logo.png">
+		</div>
+		<h1>do Condomínio</h1>
+		<a href="https://redeecominio.com.br/ecossistema/" target="_blank">
+			<div class="ecossistema">
+				<img src="imagens/ecossistema.png">
+			</div>
+		</a>
+	</header>
+
+	<main>
+		<div class="linha">
+			<a href="" class="iconmenu"><i class="fas fa-bars"></i></a>
+			<div class="cont-menu" id="lateral">
+				<div class="menu-lateral">
+					<div class="pesquisa">
+						<!-- <form>
+							<i class="fas fa-search"></i><input type="text" name="pesquisa">
+						</form> -->
+					</div>
+					<nav class="menu2" style="margin-top: 10px;">
+						<ul>
+							<li><a href="adm_principal.html"><i class="fas fa-th"></i> Principal</a></li>
+							<li><a href="adm_mensagens.html#mensagem"><i class="far fa-envelope"></i> Mensagens</a></li>
+							<li><a href="adm_vagas.html#vaga"><i class="fas fa-clipboard"></i> Vagas</a></li>
+							<li><a href="adm_sindicos.html#candidato"><i class="far fa-user"></i> Candidatos</a></li>
+							<li><a href="adm_condominios.html#condominio"><i class="fas fa-building"></i> Condomínios</a></li>
+							<li><a href="adm_solicitantes.html#solicitante"><i class="fas fa-user"></i> Solicitante</a></li>
+							<li><a href="adm_configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+							<li><a href=""><i class="fas fa-sign-out-alt"></i> Sair</a></li>							
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="cont-conteudo">
+				<div class="c1">
+					<div class="caminho">
+						<a onclick="Voltar()">
+							<div class="index_btn btn-caminho">
+								<i class="fas fa-arrow-alt-circle-left"></i> Voltar
+							</div>
+						</a>
+						<h2 class="caminho-ativo"><i class="fas fa-cog"></i> Configurações - Adicionar campo</h2>
+					</div>
+					<div class="linha-conteudo">
+						<div class="vaga principal">
+							<div class="texto texto-infos-vagas">
+								<div class="vagas-opcao-cont">
+									<div class="linha-conteudo">
+										<div class="vaga principal">
+											<div class="texto texto-infos-vagas">
+												<form id="sindico_campos" style="margin-top: -10px;">
+													<style type="text/css">
+														.linha-conteudo div button{margin: 10px 5px;}
+														.linha-conteudo div input[type="text"],[type="password"],[type="email"],[type="file"]{width: 90%}
+														.linha-conteudo div select{width: 93%}
+													</style>
+													<fieldset>
+														<legend>Adicionar campo - Síndico</legend>
+														<div class="linha-conteudo">
+															<div style="width: 100%">
+																<div style="width: 100%;text-align: center;">
+																	<select name="form_campo" required title="De qual formulário é o campo?">
+																		<option value="">Formulário</option>
+																		<option value="form_sind">Cadastro ds síndicos</option>
+																		<option value="form_soli">Cadastro ds solicitantes</option>
+																		<option value="form_cond">Cadastro de Condomínios</option>
+																		<option value="form_vaga">Cadastro de vagas</option>
+																	</select>
+																	<select name="sessao_campo" required title="De qual sessão é o campo">
+																		<option value="">Sessão</option>
+																		<option value="sessao_login">Dados de login</option>
+																		<option value="sessao_pessoal">Dados pessoais</option>
+																		<option value="sessao_apresentacao">Apresentação candidato</option>
+																		<option value="sessao_localizacao">Localização</option>
+																		<option value="sessao_escolaridade">Escolaridade/Cursos</option>
+																		<option value="sessao_profissional">Experiência profissional</option>
+																		<option value="sessao_imagem">Imagem</option>
+																	</select>
+																	<input type="text" name="placeholder_campo" required placeholder="Título do campo" title="Texto que aparecerá no campo">
+																	<select name="tipo_campo" required title="O tipo do campo">
+																		<option value="">Tipo do campo</option>
+																		<option value="text">Text</option>
+																		<option value="password">Password</option>
+																		<option value="email">Email</option>
+																		<option value="date">Date</option>
+																		<option value="time">Time</option>
+																		<option value="textarea">Textarea</option>
+																		<option value="checkbos">Checkbox</option>
+																		<option value="radio">Radio</option>
+																		<option value="select">Select</option>
+																	</select>
+																	<input type="text" name="nome_campo" required placeholder="Nome do campo" title="O nome do campo. Exempo: nome_sindico">
+																	<select name="id_campo" required title="Use apenas se o campo for ter uma máscara.">
+																		<option value="">Id do campo</option>
+																		<option value="tel">Telefone - Fixo</option>
+																		<option value="cel">Telefone - Celular</option>
+																		<option value="cpf">CPF</option>
+																		<option value="cnpj">CNPJ</option>
+																		<option value="cep">CEP</option>
+																		<option value="dinheiro">Dinheiro</option>
+																		<option value="data">Data</option>
+																	</select>
+																	<input type="text" name="title_campo" required placeholder="Notificação do campo" title="Texto que aparecerá quando o usuário passar o mouse em cima"><br>
+																	<input type="checkbox" name="required_campo" value="required" title="Use apenas se o campo for obrigatório"> <label class="text-super label-tit" style="vertical-align:50%;">Campo obrigatório</label>
+																	<br><br>Se for um campo com opções:<br><br>
+																	<div class="linha-conteudo">
+																		<div class="c2">
+																			<input type="text" name="nome_campo" placeholder="Nome do campo" required title="Nome da opção">
+																			<input type="text" name="nome_campo" placeholder="Valor do campo" required title="Valor da opção. Exemplo: opcao_sindico_1">
+																		</div>
+																		<div class="c2" style="text-align: center; display: flex; justify-content: center; align-items: center;">
+																			<a href="" title="Adicionar mais uma opção">
+																				<div class="index_btn btn-reg">
+																					<i class="fas fa-plus-circle"></i> Adicionar opção
+																				</div>
+																			</a>
+																		</div>
+																	</div>
+																	<button type="submit" class="submit">Salvar Campo</button>
+																</div>
+															</div>
+														</div>
+													</fieldset>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

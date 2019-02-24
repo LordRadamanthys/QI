@@ -6,8 +6,8 @@ $con = new Banco();
 	if(!empty($_POST['nome_soli'])  && !empty($_POST['senha_cond']) && !empty($_POST['e_mail_cond'])){
         //usuario sindico
 		$nome = isset($_POST['nome_soli']) ? $_POST['nome_soli'] : '';
-		$senha = isset($_POST['senha_cond']) ? $_POST['senha_cond'] : '';
-		$email = isset($_POST['e_mail_cond']) ? $_POST['e_mail_cond'] : '';
+		$senha = isset($_POST['senha_cond']) ? base64_encode(sha1('tomaLixo'. $_POST['senha_cond'])) : '';
+		$email = isset($_POST['e_mail_cond']) ? strtolower($_POST['e_mail_cond']) : '';
         $tel_cel = isset($_POST['tel_cel_cond']) ? $_POST['tel_cel_cond'] : '';
         $nivel = isset($_POST['nivel']) ? $_POST['nivel'] : '';
         
@@ -33,8 +33,8 @@ $con = new Banco();
         $foto_tipo = $_FILES['Img_perfil_soli']['type'];
         $array_foto = array($foto_nome,$foto_temp,$foto_tipo);
 
-   
-        $sqlSoli = "INSERT INTO solicitante_cond ( nome, senha, email, celular, cpf, funcao, tel_fixo, data_aniversario, sexo, cep, pais, estado, cidade, endereco, complemento, numero, nivel) VALUES ('$nome','$senha','$email','$tel_cel','$cpf','$funcao_soli','$tel_fix_soli','$data_aniv_soli','$sexo','$cep_soli','$pais_soli','$estado_soli','$cidade_soli','$endereco_soli','$complemento_soli','$numero_soli','$nivel')";
+        $liberado = "nao";
+        $sqlSoli = "INSERT INTO solicitante_cond ( nome, senha, email, celular, cpf, funcao, tel_fixo, data_aniversario, sexo, cep, pais, estado, cidade, endereco, complemento, numero, nivel,liberado) VALUES ('$nome','$senha','$email','$tel_cel','$cpf','$funcao_soli','$tel_fix_soli','$data_aniv_soli','$sexo','$cep_soli','$pais_soli','$estado_soli','$cidade_soli','$endereco_soli','$complemento_soli','$numero_soli','$nivel','$liberado')";
         
         $key = $con->verificaEmail($email);
         if($key[0]==false){

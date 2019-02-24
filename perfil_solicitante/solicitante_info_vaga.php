@@ -84,11 +84,11 @@ $dados_vaga = $con->listarVagasCondominiosIdCond($id_vaga);
 					<div class="img-perfil" style="background-image: url(../src/usuarios_soli/<?=$_SESSION['UsuarioID']?>/foto/perfil.jpg);"></div>
 					<nav class="menu2">
 						<ul>
-							<li><a href="solicitante_principal.html"><i class="far fa-user"></i> Principal</a></li>
+							<li><a href="solicitante_principal.php"><i class="far fa-user"></i> Principal</a></li>
 							<li><a href="solicitante_painel_vagas.php"><i class="fas fa-clipboard"></i> Minhas Vagas</a></li>
 							<li><a href="solicitante_painel_condominio.php"><i class="fas fa-building"></i> Meus Condomínios</a></li>
-							<li><a href="solicitante_candidaturas.html"><i class="far fa-folder"></i> Candidaturas</a></li>
-							<li><a href="solicitante_mensagem.html"><i class="far fa-envelope"></i> Mensagens</a></li>
+							<li><a href="solicitante_candidaturas.php"><i class="far fa-folder"></i> Candidaturas</a></li>
+							<li><a href="solicitante_mensagem.php"><i class="far fa-envelope"></i> Mensagens</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -200,5 +200,8 @@ $dados_vaga = $con->listarVagasCondominiosIdCond($id_vaga);
 			</div>
 		</div>
 	</main>
+<script>
+alert("Versão de testes!!!!!!!");
+</script>
 </body>
 </html>

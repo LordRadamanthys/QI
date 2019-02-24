@@ -10,8 +10,10 @@ $con = new Banco();
 		$sql = "INSERT INTO candidato_vaga (id_usuario, id_condominio,id_vaga) 
                             VALUES('$id_usuario','$id_condominio','$id_vaga')";
 		
-        $con->Candidatar($sql);
-        header("Location: ../perfil_sindico/sindico_info_vaga.php?h=$id_condominio&v=$id_usuario");
+
+$con->Candidatar($sql);
+
+        header("Location: ../perfil_sindico/sindico_info_vaga.php?h=$id_condominio&v=$id_vaga");
         
 	
 

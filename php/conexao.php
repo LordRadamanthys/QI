@@ -11,9 +11,10 @@
     public $result2 ='';
     public $result3 = '';
     public $resultcondominio = '';
-
+    public $sind_mensagem='';
     public $usuario ='';
     public $senha ='';
+    public $soli_mensagem='';
 
     private function conectar(){
         $this->mysqli = new mysqli($this->host, $this->user, $this->password, $this->db);
@@ -37,7 +38,8 @@
             $this->escolaridade($array_curso,$id);
             $this->curriculo($array_curriculo,$id);
             $this->fotoPerfilSind($array_foto,$id);
-            echo "<h1>Inserido</h1><br>";
+            header("Location: ../perfil_solicitante/solicitante_pagina_espera.html"); exit;
+           
         } else {
             echo "Erro ao inserir!";
         }
@@ -103,7 +105,7 @@
         if ($mysqli->query($sql)) {
             $id = $mysqli->insert_id;
             $this->fotoPerfilSoli($array_foto,$id);
-            echo "<h1>Inserido solicitante</h1><br>";
+            header("Location: ../perfil_solicitante/solictante_pagina_espera.html"); exit;
         } else {
             echo "Erro ao inserir solictante!";
         }
@@ -128,7 +130,7 @@
         if ($mysqli->query($sql)) {
             $id = $mysqli->insert_id;
             $this->fotoPerfilCond($array_foto,$id);
-            echo "<h1>Inserido COND</h1><br>";
+             header("Location: ../perfil_solicitante/solicitante_painel_condominio.php"); exit;
         } else {
             echo "Erro ao inserir cond";
         }
@@ -218,6 +220,100 @@
         }
     }
 
+    public function listarMeusCandidatos($id){
+        $mysqli = $this->conectar();
+        $result2=0;
+        $sqlCond="SELECT * FROM vagas_condominio WHERE id_solicitante = '$id' ORDER BY id_solicitante ASC";//seleciona dados do condominio com base no id recebido
+        
+        if ($teste=$mysqli->query($sqlCond)) {
+            //$this->$result2 = $mysqli->query($sqlCond);
+
+           // $rowCondominio=mysqli_fetch_assoc($this->result);
+            //$rowCond = mysqli_fetch_assoc($this->$result2);
+
+       // return $rowCondominio;//envia as duas informações para a pagina
+        $i=0;               
+                            while (!empty($numero_candidatos = mysqli_fetch_assoc($teste))){
+                             
+                             $a[$i] = $numero_candidatos['id_condominio']; 
+                                 
+                            $i++;
+                            } 
+                            $p='';
+                        if(!empty($a)){
+                            foreach ($a as $key => $value) {
+                                if($p != $value){
+                                    $this->pegaCandidatosVaga($value);
+                                    $p = $value;
+                                }
+                            }
+                        }else{
+                            echo "erro";
+                        }
+                        
+
+        } else {
+            echo "Erro ao Listar!";
+        }
+    }
+
+    public function pegaCandidatosVaga($id){
+        $mysqli = $this->conectar();
+        
+        $sqlCond="SELECT * FROM candidato_vaga WHERE id_condominio = '$id'";//seleciona dados do condominio com base no id recebido
+        $s='';
+        if ($s=$mysqli->query($sqlCond)) {
+
+            while(!empty($num_vaga = mysqli_fetch_assoc($s))){
+                $usu = $this->pegarSindico($num_vaga['id_usuario']);
+                $vaga = $this->listarVagasCondominiosParaSindico($num_vaga['id_vaga']);
+                $cond = $this->listarCondominiosPerfil($num_vaga['id_condominio']);
+
+               
+               echo' <div class="quadro" >
+                    <a href="solicitante_candidato_perfil.php?h='.$usu['id'].'">
+                        <div class="quadro-img" style="background-image: url(../src/usuarios_sind/'.$usu['id'].'/foto/1.jpg);"></div>
+                            <div class="quadro-txt"><div>'.$usu['nome'].'<hr>'.$vaga['posicao'].'</div></div>
+                      </a>
+                </div>';
+                
+             }
+
+        } else {
+            echo "Erro ao Listar!";
+        }
+    }
+
+    public function listarVagasCondominiosParaSindico($id2){
+        $mysqli = $this->conectar();
+        $result2=0;
+        $sqlVaga="SELECT * FROM vagas_condominio WHERE id = '$id2'";//seleciona dados do condominio com base no id recebido
+        
+        if ($this->result=$mysqli->query($sqlVaga)) {
+            //$this->$result2 = $mysqli->query($sqlCond);
+
+            $rowVaga=mysqli_fetch_assoc($this->result);
+            //$rowCond = mysqli_fetch_assoc($this->$result2);
+
+        return $rowVaga;
+        } else {
+            echo "Erro ao Listar! vagas";
+        }
+    }
+
+
+
+    public function pegarSindico($id){
+        $mysqli = $this->conectar();
+        $sql="SELECT * FROM usuarios WHERE id = '$id'";
+        if ($s=$mysqli->query($sql)) {
+            $usu = mysqli_fetch_assoc($s);
+            return $usu;
+        }else{
+            echo "erro ao pegar";
+        }
+    }
+
 
     public function listarCondominiosPerfil($id){
         $mysqli = $this->conectar();
@@ -241,7 +337,7 @@
         $mysqli = $this->conectar();
         if ($mysqli->query($sql)) {
             //$id = $mysqli->insert_id;
-            echo "<h1>VAGA INSERIDA</h1><br>";
+             header("Location: ../perfil_solicitante/solicitante_painel_vagas.php"); exit;
         } else {
             echo "Erro ao inserir VAGA";
         }
@@ -424,10 +520,10 @@
         }
     }
 
-    public function verificarCandidatura($id_usuario,$id_cond){
+    public function verificarCandidatura($id_usuario,$id_cond,$id_vaga){
         $mysqli = $this->conectar();
         $result=0;
-        $sql="SELECT * FROM candidato_vaga WHERE id_usuario = '$id_usuario' AND id_condominio = '$id_cond'";//seleciona dados do condominio com base no id recebido
+        $sql="SELECT * FROM candidato_vaga WHERE id_usuario = '$id_usuario' AND id_condominio = '$id_cond' AND id_vaga = '$id_vaga'";//seleciona dados do condominio com base no id recebido
         
         if ($this->result=$mysqli->query($sql)) {
             
@@ -436,6 +532,55 @@
         return $rowSeguindo;
         } else {
             echo "Erro ao Listar! vagas";
+        }
+    }
+
+    public function pegarMensagemSindico($id_usuario){
+        $mysqli = $this->conectar();
+        $sind_mensagem=0;
+        $sql="SELECT * FROM mensagens_sindico_adm WHERE id_usuario = '$id_usuario'";//seleciona dados do condominio com base no id recebido
+        
+        if ($this->sind_mensagem=$mysqli->query($sql)) {
+            
+            $rowMensagem=mysqli_fetch_assoc($this->sind_mensagem);
+
+        return $rowMensagem;
+        } else {
+            echo "Erro ao Listar! vagas";
+        }
+    }
+
+    public function pegarMensagemSolicitante($id_usuario){
+        $mysqli = $this->conectar();
+        $soli_mensagem=0;
+        $sql="SELECT * FROM mensagens_solicitante_adm WHERE id_usuario = '$id_usuario'";//seleciona dados do condominio com base no id recebido
+        
+        if ($this->soli_mensagem=$mysqli->query($sql)) {
+            
+            $rowMensagem=mysqli_fetch_assoc($this->soli_mensagem);
+
+        return $rowMensagem;
+        } else {
+            echo "Erro ao Listar! vagas";
+        }
+    }
+
+    public function InserirMensagemSolicitante($sql){
+        $mysqli = $this->conectar();
+        $result=0;        
+        if ($this->result=$mysqli->query($sql)) {
+            
+        } else {
+            echo "Erro ao enviar mensagem";
+        }
+    }
+    public function InserirMensagemSindico($sql){
+        $mysqli = $this->conectar();
+        $result=0;        
+        if ($this->result=$mysqli->query($sql)) {
+            
+        } else {
+            echo "Erro ao enviar mensagem";
         }
     }
   
@@ -516,7 +661,7 @@
         // Destrói a sessão por segurança
             session_destroy();
             // Redireciona o visitante de volta pro login
-            header("Location: ./index.html"); exit;
+            header("Location: ../index.html"); exit;
         }
     }
 
@@ -528,7 +673,7 @@
         // Destrói a sessão por segurança
             session_destroy();
             // Redireciona o visitante de volta pro login
-            header("Location: ./index.html"); exit;
+            header("Location: ../index.html"); exit;
         }
     }
 

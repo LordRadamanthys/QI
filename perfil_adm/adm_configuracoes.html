@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script>
+	<script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
+
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" type="image/png" href="imagens/favicon.png" />
+	<link rel="icon" type="image/x-icon" href="imagens/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="imagens/favicon.png">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<title>Configurações - ADM - Qi do condomínio</title>
+  	<script type="text/javascript">
+		function Voltar() {
+  			window.history.back();
+		}
+  	</script>
+</head>
+<body id="vagas_campos">
+	<header>
+		<div class="caixalogo">
+			<img src="imagens/logo.png">
+		</div>
+		<h1>do Condomínio</h1>
+		<a href="https://redeecominio.com.br/ecossistema/" target="_blank">
+			<div class="ecossistema">
+				<img src="imagens/ecossistema.png">
+			</div>
+		</a>
+	</header>
+
+	<main>
+		<div class="linha">
+			<a href="" class="iconmenu"><i class="fas fa-bars"></i></a>
+			<div class="cont-menu" id="lateral">
+				<div class="menu-lateral">
+					<div class="pesquisa">
+						<!-- <form>
+							<i class="fas fa-search"></i><input type="text" name="pesquisa">
+						</form> -->
+					</div>
+					<nav class="menu2" style="margin-top: 10px;">
+						<ul>
+							<li><a href="adm_principal.html"><i class="fas fa-th"></i> Principal</a></li>
+							<li><a href="adm_mensagens.html#mensagem"><i class="far fa-envelope"></i> Mensagens</a></li>
+							<li><a href="adm_vagas.html#vaga"><i class="fas fa-clipboard"></i> Vagas</a></li>
+							<li><a href="adm_sindicos.html#candidato"><i class="far fa-user"></i> Candidatos</a></li>
+							<li><a href="adm_condominios.html#condominio"><i class="fas fa-building"></i> Condomínios</a></li>
+							<li><a href="adm_solicitantes.html#solicitante"><i class="fas fa-user"></i> Solicitante</a></li>
+							<li class="active"><a href="adm_configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+								<ul style="margin-left: 15%; width: 84.5%">
+									<li><a href="#vagas_campos">Vagas</a></li>
+									<li><a href="#candidatos_campos">Candidatos</a></li>
+									<li><a href="#condominios_campos">Condomínios</a></li>
+									<li><a href="#solicitantes_campos">Solicitantes</a></li>
+								</ul>
+							<li><a href=""><i class="fas fa-sign-out-alt"></i> Sair</a></li>						
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="cont-conteudo">
+
+				<div class="pop-up-excluir" id="excluir">
+					<div class="excluir-txt">
+						Você tem certeza que quer excluir o campo (Nome do campo) da sessão (Nome da sessão), do formulário (Nome do formulário)?
+						<form>
+							<button type="submit" class="submit" style="margin-bottom: 10px">Sim</button>
+							<button type="reset" class="reset" onclick="document.getElementById('excluir').style.display='none'">Não</button>
+						</form>
+					</div>
+				</div>
+				<style type="text/css">
+					.vagas-opcao-cont th:not(:first-child) {border-left: 2px solid #fff;}
+					.vagas-opcao-cont td:not(:first-child) {border-left: 2px solid #009900;}
+					.vagas-opcao-cont tr:hover td:not(:first-child) {border-left: 2px solid #fff;}
+				</style>
+
+				<div class="c1">
+					<div class="linha-conteudo">
+						<div class="vaga principal">
+							<div class="texto "> <!-- texto-infos-vagas"> -->
+								<div class="vagas-opcao-cont">
+									<div class="quadros quadros-2">
+										<div class="quadro" style="margin-bottom: 0">
+											<a>
+												<div class="quadro-img"><i class="fas fa-clipboard"></i></div>
+												<div class="quadro-txt"><div>Vagas</div></div>
+											</a>
+										</div>
+										<div class="vagas-opcao-cont" style="background-color: #fff; overflow-x:auto; margin: 0 0.6%; width: 100%">
+											<form><!-- VAGAS -->
+												<fieldset>
+													<legend>Campos formulário da vaga</legend>
+													<div class="linha-conteudo" style="overflow-x:auto;">
+														<div style="width: 100%;text-align: center;">
+															<table>
+																<tr style="background-color: #009900; color: #fff;">
+																	<th>Campo</th>
+																	<th>Tipo</th>
+																	<th>Nome</th>
+																	<th>Obrigatório</th>
+																	<th>Botões</th>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados da vaga&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Condomínio</td>
+																	<td>Select</td>
+																	<td>cond_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Posição</td>
+																	<td>Select</td>
+																	<td>posicao_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Período em horas</td>
+																	<td>Time</td>
+																	<td>periodo_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Nível de escolaridade</td>
+																	<td>Text</td>
+																	<td>nivel_escolaridade_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Honorário</td>
+																	<td>Text</td>
+																	<td>honorario_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Descrição da vaga</td>
+																	<td>Textarea</td>
+																	<td>descricao_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Competências da vaga</td>
+																	<td>Textarea</td>
+																	<td>competencias_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Requesitos da vaga</td>
+																	<td>Textarea</td>
+																	<td>requesitos_vaga</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+															</table>
+															<a href="adm_add_campo.html">
+																<div class="index_btn" style="max-width: 40%;  margin: 10px auto">
+																	Adicionar campo
+																</div>
+															</a>
+															<a href="adm_add_sessao.html">
+																<div class="index_btn btn-reg" style="max-width: 40%;  margin: 10px auto" id="candidatos_campos">
+																	Adicionar Sessão
+																</div>
+															</a>
+														</div>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+
+										<div class="quadro" style="margin-bottom: 0">
+											<a>
+												<div class="quadro-img"><i class="far fa-user"></i></div>
+												<div class="quadro-txt"><div>Candidatos</div></div>
+											</a>
+										</div>
+										<div class="vagas-opcao-cont" style="background-color: #fff; overflow-x:auto; margin: 0 0.6%; width: 100%">
+											<form><!-- CANDIDATOS -->
+												<fieldset>
+													<legend>Campos formulário do Candidato</legend>
+													<div class="linha-conteudo" style="overflow-x:auto;">
+														<div style="width: 100%;text-align: center;">
+															<table>
+																<tr style="background-color: #009900; color: #fff;">
+																	<th>Campo</th>
+																	<th>Tipo</th>
+																	<th>Nome</th>
+																	<th>Obrigatório</th>
+																	<th>Botões</th>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados de login&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>E-mail</td>
+																	<td>Email</td>
+																	<td>e_mail_candidato</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Telefone/Whatsapp</td>
+																	<td>Text</td>
+																	<td>tel_cel_candidato</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Senha</td>
+																	<td>Password</td>
+																	<td>senha_candidato</td>
+																	<td>Sim</td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Confirmar senha</td>
+																	<td>Password</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados do síndico&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Nome do síndico</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Sobrenome do síndico</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>CPF</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Profissão</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>DDD</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Telefone/Fixo</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Data nascimento</td>
+																	<td>Date</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Gênero</td>
+																	<td>Radio</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Apresentação</td>
+																	<td>Textarea</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Idioma(as)</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Apresentação do Candidato&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Link do vídeo</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Currículo</td>
+																	<td>File</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados de localização&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>CEP</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>País</td>
+																	<td>Select</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Estado</td>
+																	<td>Select</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Cidade</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Endereço</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Complemento</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Número</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Escolaridade/Cursos&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Nome do curso</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Nome da instituição</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>País onde cursou</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Tipo de curso</td>
+																	<td>Select</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Inicio do curso</td>
+																	<td>Date</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Conclusão do curso</td>
+																	<td>Date</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Situação</td>
+																	<td>Radio</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Experiência profissional&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Nome da empresa</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Cargo</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Período início</td>
+																	<td>Date</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Período fim</td>
+																	<td>Date</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Situação</td>
+																	<td>Checkbox</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Imagem&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Imagem de perfil</td>
+																	<td>File</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+															</table>
+															<a href="adm_add_campo.html">
+																<div class="index_btn" style="max-width: 40%;  margin: 10px auto">
+																	Adicionar campo
+																</div>
+															</a>
+															<a href="adm_add_sessao.html">
+																<div class="index_btn btn-reg" style="max-width: 40%;  margin: 10px auto" id="condominios_campos">
+																	Adicionar Sessão
+																</div>
+															</a>
+														</div>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+
+										<div class="quadro" style="margin-bottom: 0">
+											<a>
+												<div class="quadro-img"><i class="fas fa-building"></i></div>
+												<div class="quadro-txt"><div>Condomínios</div></div>
+											</a>
+										</div>
+										<div class="vagas-opcao-cont" style="background-color: #fff; overflow-x:auto; margin: 0 0.6%; width: 100%">
+											<form><!-- CONDOMÍNIOS -->
+												<fieldset>
+													<legend>Campos formulário do condomínio</legend>
+													<div class="linha-conteudo" style="overflow-x:auto;">
+														<div style="width: 100%;text-align: center;">
+															<table>
+																<tr style="background-color: #009900; color: #fff;">
+																	<th>Campo</th>
+																	<th>Tipo</th>
+																	<th>Nome</th>
+																	<th>Obrigatório</th>
+																	<th>Botões</th>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados do condomínio&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Nome do condomínio</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>CNPJ</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>DDD</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Telefone</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Tipo</td>
+																	<td>Radio</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Quantidade de unidades</td>
+																	<td>Number</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Idade do empreendimento</td>
+																	<td>Number</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados de localização&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>CEP</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>País</td>
+																	<td>Select</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Estado</td>
+																	<td>Select</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Cidade</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Endereço</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Complemento</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Número</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Imagem&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Imagem do condomínio</td>
+																	<td>File</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+															</table>
+															<a href="adm_add_campo.html">
+																<div class="index_btn" style="max-width: 40%;  margin: 10px auto">
+																	Adicionar campo
+																</div>
+															</a>
+															<a href="adm_add_sessao.html">
+																<div class="index_btn btn-reg" style="max-width: 40%;  margin: 10px auto" id="solicitantes_campos">
+																	Adicionar Sessão
+																</div>
+															</a>
+														</div>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+
+										<div class="quadro" style="margin-bottom: 0">
+											<a>
+												<div class="quadro-img"><i class="fas fa-user"></i></div>
+												<div class="quadro-txt"><div>Solicitante</div></div>
+											</a>
+										</div>
+										<div class="vagas-opcao-cont" style="background-color: #fff; overflow-x:auto; margin: 0 0.6%; width: 100%">
+											<form><!-- SOLICITANTE -->
+												<fieldset>
+													<legend>Campos formulário do solicitante</legend>
+													<div class="linha-conteudo" style="overflow-x:auto;">
+														<div style="width: 100%;text-align: center;">
+															<table>
+																<tr style="background-color: #009900; color: #fff;">
+																	<th>Campo</th>
+																	<th>Tipo</th>
+																	<th>Nome</th>
+																	<th>Obrigatório</th>
+																	<th>Botões</th>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados de login&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>E-mail</td>
+																	<td>Email</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Telefone/Whatsapp</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Senha</td>
+																	<td>Password</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Confirmar senha</td>
+																	<td>Password</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados do solicitante&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Nome do solicitante</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Sobrenome do solicitante</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>CPF</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Cargo/Função</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Telefone/Fixo</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Data nascimento</td>
+																	<td>Date</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Gênero</td>
+																	<td>Radio</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Dados de localização&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>CEP</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>País</td>
+																	<td>Select</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Estado</td>
+																	<td>Select</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Cidade</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Endereço</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Complemento</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Número</td>
+																	<td>Text</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+																<tr>
+																	<th colspan="5" style="text-align: center; background-color: #0081FF; color: #fff;">
+																		Imagem&nbsp;&nbsp;
+																		<i class="fas fa-edit" onclick="location.href = 'adm_sessao_configuracoes.html';"></i>
+																	</th>
+																</tr>
+																<tr>
+																	<td>Imagem de perfil</td>
+																	<td>File</td>
+																	<td></td>
+																	<td></td>
+																	<td>
+																		<i class="fas fa-edit" onclick="location.href = 'adm_campo_configuracoes.html';"></i>&nbsp;&nbsp;
+																		<i class="fas fa-trash-alt"  title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+																	</td>
+																</tr>
+															</table>
+															<a href="adm_add_campo.html">
+																<div class="index_btn" style="max-width: 40%;  margin: 10px auto">
+																	Adicionar campo
+																</div>
+															</a>
+															<a href="adm_add_sessao.html">
+																<div class="index_btn btn-reg" style="max-width: 40%;  margin: 10px auto">
+																	Adicionar Sessão
+																</div>
+															</a>
+														</div>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
