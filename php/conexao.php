@@ -105,7 +105,7 @@
         if ($mysqli->query($sql)) {
             $id = $mysqli->insert_id;
             $this->fotoPerfilSoli($array_foto,$id);
-            header("Location: ../perfil_solicitante/solictante_pagina_espera.html"); exit;
+            header("Location: ../perfil_solicitante/solicitante_pagina_espera.html"); exit;
         } else {
             echo "Erro ao inserir solictante!";
         }
@@ -138,16 +138,22 @@
 
     
 
-    private function fotoPerfilCond($a,$id)
+    private function fotoPerfilCond($a,$id,$k='')
     {   
         $ext = strtolower(substr($a[0],-4)); //Pegando extensão do arquivo
+        if($k==1){
+            move_uploaded_file($a[1],'../src/usuarios_cond/'.$id.'/foto/perfil.jpg');
+        }else{
         mkdir('C:/xampp/htdocs/QI/src/usuarios_cond/'.$id.'/foto/', 0777, true);
+
         if (move_uploaded_file($a[1],'../src/usuarios_cond/'.$id.'/foto/perfil.jpg')) {
+
             echo('foi foto<br>');
             
         }else{
             echo 'erro cond: '.$a[0].'<br>'.$a[1].'<br>'.$a[2].'<br>'.$id;
         }
+    }
     }
     
     public function MinhasVagas($id_usuario){
@@ -313,7 +319,57 @@
             echo "erro ao pegar";
         }
     }
+  public function AtualizarCondominio($sql, $array_foto,$id){
+            $mysqli = $this->conectar();  
+            if ($mysqli->query($sql)) {
+                $path = "../src/usuarios_cond/$id/foto/perfil.jpg";
+                 unlink($path);
+                $this->fotoPerfilCond($array_foto,$id,1);
+            } else {
+                echo "Erro ao Atualizar condominio!";
+            }
+        }
 
+        public function DeletarVagas($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM vagas_condominio WHERE id_condominio = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+    public function DeletarSeguindo($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM seguindo WHERE id_condominio = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    public function DeletarCondominio($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM condominio WHERE id = $id";
+        if($mysqli->query($sql)){
+            $this->DeletarVagas($id);
+            $this->DeletarSeguindo($id);
+            $this->DeletaCandidatoVaga($id);
+            header("Location: ../perfil_solicitante/solicitante_painel_condominio.php"); exit;
+        }else{
+            die("Não deletou Condominio");
+        }
+    }
+    public function DeletaCandidatoVaga($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM candidato_vaga WHERE id_condominio = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
 
     public function listarCondominiosPerfil($id){
         $mysqli = $this->conectar();

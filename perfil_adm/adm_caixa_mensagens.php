@@ -65,7 +65,7 @@ if($t=="sol"){
 					</div>
 					<nav class="menu2" style="margin-top: 10px;">
 						<ul>
-							<li><a href="adm_principal.php"><i class="fas fa-th"></i> Principal</a></li>
+							<li><a href="adm_principal.html"><i class="fas fa-th"></i> Principal</a></li>
 							<li><a href="adm_mensagens.php#mensagem"><i class="far fa-envelope"></i> Mensagens</a></li>
 							<li><a href="adm_vagas.php#vaga"><i class="fas fa-clipboard"></i> Vagas</a></li>
 							<li><a href="adm_sindicos.php#candidato"><i class="far fa-user"></i> Candidatos</a></li>

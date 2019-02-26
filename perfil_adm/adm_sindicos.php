@@ -106,6 +106,7 @@ function aprovar(valor, nome) {
 						Você tem certeza que quer excluir o candidato: <span id="question3"></span>?
 						<form method="post" action="conexao_adm/aprovar_reprovar.php">
 							<input type="hidden" name="id_usuarioRE" id="reprovado2">
+							<input type="hidden" name="excluir" value="excluir">
 							<button type="submit" class="submit" style="margin-bottom: 10px">Sim</button>
 							<button class="reset" onclick="document.getElementById('excluir').style.display='none'">Não</button>
 						</form>
@@ -173,9 +174,9 @@ function aprovar(valor, nome) {
                              do{
                     ?>
 											  	<tr>
-											    	<td onclick="location.href = 'adm_sindico_perfil.html';" class="table_img" style="background-image: url(../src/usuarios_sind/<?= $usuariosSindico["id"] ?>/foto/1.jpg);"></td>
-											    	<td onclick="location.href = 'adm_sindico_perfil.html';">Síndico</td>
-											    	<td onclick="location.href = 'adm_sindico_perfil.html';"><?= $usuariosSindico["nome"] ?></td>  
+											    	<td onclick="location.href = 'adm_sindico_perfil.php?idh=<?= $usuariosSindico["id"] ?>';" class="table_img" style="background-image: url(../src/usuarios_sind/<?= $usuariosSindico["id"] ?>/foto/1.jpg);"></td>
+											    	<td onclick="location.href = 'adm_sindico_perfil.php?idh=<?= $usuariosSindico["id"] ?>';">Síndico</td>
+											    	<td onclick="location.href = 'adm_sindico_perfil.php?idh=<?= $usuariosSindico["id"] ?>';"><?= $usuariosSindico["nome"] ?></td>  
 											    	<td>
 											    		<div class="botoes">
 											    		<?php if($usuariosSindico["link_video"]){?>
@@ -204,7 +205,7 @@ function aprovar(valor, nome) {
 												    	<div class="botoes">
 													    	<i class="far fa-check-circle" onclick="document.getElementById('aprovar').style.display='flex'; aprovar(<?= $usuariosSindico["id"] ?>,'<?= $usuariosSindico["nome"] ?>')" title="Aprovar o candidato"></i>
 													    	<i class="fas fa-ban" onclick="document.getElementById('reprovar').style.display='flex';aprovar(<?= $usuariosSindico["id"] ?>,'<?= $usuariosSindico["nome"] ?>')" title="Reprovar o candidato"></i>
-													    	<i class="fas fa-edit" onclick="location.href = 'adm_sindico_editar_form.html';" title="Editar informações do candidato"></i>
+													    	<i class="fas fa-edit" onclick="location.href = 'adm_sindico_editar_form.php?idh=<?= $usuariosSindico["id"] ?>';" title="Editar informações do candidato"></i>
 												    	</div>
 													</td>
 											  	</tr>
@@ -233,9 +234,9 @@ function aprovar(valor, nome) {
                              do{
                     ?>
 											  	<tr>
-												    <td onclick="location.href = 'adm_sindico_perfil.html';" class="table_img" style="background-image: url(../src/usuarios_sind/<?= $usuariosAprovado["id"] ?>/foto/1.jpg);"></td> 
-												    <td onclick="location.href = 'adm_sindico_perfil.html';">Síndico</td>
-												    <td onclick="location.href = 'adm_sindico_perfil.html';"><?= $usuariosAprovado["nome"] ?></td>
+												    <td onclick="location.href = 'adm_sindico_perfil.php?idh=<?= $usuariosAprovado["id"] ?>';" class="table_img" style="background-image: url(../src/usuarios_sind/<?= $usuariosAprovado["id"] ?>/foto/1.jpg);"></td> 
+												    <td onclick="location.href = 'adm_sindico_perfil.php?idh=<?= $usuariosAprovado["id"] ?>';">Síndico</td>
+												    <td onclick="location.href = 'adm_sindico_perfil.php?idh=<?= $usuariosAprovado["id"] ?>';"><?= $usuariosAprovado["nome"] ?></td>
 											    	<td>
 											    		<div class="botoes">
 											    			<?php if($usuariosAprovado["link_video"]){?>
@@ -263,7 +264,7 @@ function aprovar(valor, nome) {
 												    	<div class="botoes">
 													    	<i class="fas fa-comments" onclick="document.getElementById('notificar').style.display='flex'" title="Notificar o candidato"></i>
 													    	<i class="far fa-trash-alt" onclick="document.getElementById('excluir').style.display='flex';aprovar(<?= $usuariosAprovado["id"] ?>,'<?= $usuariosAprovado["nome"] ?>')" title="Excluir o candidato"></i>
-													    	<i class="fas fa-edit" onclick="location.href = 'adm_sinsindico_editar_form.html';" title="Editar informações do candidato"></i>
+													    	<i class="fas fa-edit" onclick="location.href = 'adm_sindico_editar_form.php?idh=<?= $usuariosAprovado["id"] ?>';" title="Editar informações do candidato"></i>
 												    	</div>
 													</td>
 												</tr>

@@ -3,14 +3,15 @@ require('../php/conexao.php');
 //include('conexao.php');
 $con = new Banco();
 $con->verificaLoginSoli();
+
 	if(!empty($_POST['nome_cond'])){
-        
+        $id_cond = $_POST['id_cond'];
         $id = $_SESSION['UsuarioID'];
         //foto
-        $foto=$_FILES['Img_cond']['name'];
-        $foto_nome = $_FILES['Img_cond']['name'];
-        $foto_temp = $_FILES['Img_cond']['tmp_name'];
-        $foto_tipo = $_FILES['Img_cond']['type'];
+        $foto= isset($_FILES['Img_cond']['name']) ? $_FILES['Img_cond']['name'] : '';
+        $foto_nome = isset($_FILES['Img_cond']['name']) ? $_FILES['Img_cond']['name'] : '';
+        $foto_temp = isset($_FILES['Img_cond']['tmp_name']) ? $_FILES['Img_cond']['tmp_name'] : '';
+        $foto_tipo = isset($_FILES['Img_cond']['type']) ? $_FILES['Img_cond']['type'] : '';
         $array_foto = array($foto_nome,$foto_temp,$foto_tipo);
 
         $nome_cond = isset($_POST['nome_cond']) ? $_POST['nome_cond'] : '';
@@ -28,13 +29,15 @@ $con->verificaLoginSoli();
         $numero_cond = isset($_POST['numero_cond']) ? intval($_POST['numero_cond']) : '';
  
         
-
-        $sqlCond = "INSERT INTO condominio ( id_solicitante, nome_cond, cnpj_cond, tel_fix_cond, tipo_cond, unidades_cond,cep_cond, idade_cond, pais_cond, estado_cond, cidade_cond, endereco_cond, complemento_cond, numero_cond) 
-        VALUES ('$id','$nome_cond','$cnpj_cond','$tel_fix_cond','$tipo_cond','$unidades_cond','$cep_cond','$idade_cond','$pais_cond','$estado_cond','$cidade_cond','$endereco_cond','$complemento_cond','$numero_cond')";
-
-        
-        $con->cadastroCondominio($sqlCond, $array_foto);
-        
+                if(empty($_POST["editar"])){
+                        $sqlCond = "INSERT INTO condominio ( id_solicitante, nome_cond, cnpj_cond, tel_fix_cond, tipo_cond, unidades_cond,cep_cond, idade_cond, pais_cond, estado_cond, cidade_cond, endereco_cond, complemento_cond, numero_cond) 
+                        VALUES ('$id','$nome_cond','$cnpj_cond','$tel_fix_cond','$tipo_cond','$unidades_cond','$cep_cond','$idade_cond','$pais_cond','$estado_cond','$cidade_cond','$endereco_cond','$complemento_cond','$numero_cond')";
+                        $con->cadastroCondominio($sqlCond, $array_foto);
+                }else{
+                        $sqlAtu = "UPDATE condominio SET nome_cond='$nome_cond', cnpj_cond='$cnpj_cond', tel_fix_cond='$tel_fix_cond', tipo_cond='$tipo_cond', unidades_cond='$unidades_cond',cep_cond='$cep_cond', idade_cond='$idade_cond', pais_cond='$pais_cond', estado_cond='$estado_cond', cidade_cond='$cidade_cond', endereco_cond='$endereco_cond', complemento_cond='$complemento_cond', numero_cond='$numero_cond' WHERE id = $id_cond";
+                        $con->AtualizarCondominio($sqlAtu,$array_foto,$id_cond);
+                        header("Location: ../perfil_solicitante/solicitante_painel_condominio.php"); exit;
+                }
 	}else{
 		die("erro");
 	}

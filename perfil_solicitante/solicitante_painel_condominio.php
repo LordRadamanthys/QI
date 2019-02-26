@@ -42,6 +42,14 @@ $condominio= $con->listarCondominios($_SESSION['UsuarioID']);
   			window.history.back();
 		}
   	</script>
+  	  	<script>
+function aprovar(valor, nome) {
+    document.getElementById('aprovado').value = valor;
+    document.getElementById('question').innerHTML = nome;
+
+}
+
+</script>
 </head>
 <body>
 
@@ -115,11 +123,18 @@ $condominio= $con->listarCondominios($_SESSION['UsuarioID']);
 					</div>
 					<div class="pop-up-excluir" id="excluir">
 						<div class="excluir-txt">
-							Você tem certeza que quer excluir o (Condomínio)?
-							<form>
+							Você tem certeza que quer excluir o <span id="question"></span>?
+							<form method="post">
+								<input type="hidden" id="aprovado" name="aprovado">
 								<button type="submit" class="submit" style="margin-bottom: 10px">Sim</button>
 								<button type="reset" class="reset" onclick="document.getElementById('excluir').style.display='none'">Não</button>
 							</form>
+							<?php 
+								if(isset($_POST['aprovado'])){
+									$con->DeletarCondominio($_POST['aprovado']);
+									
+								}
+							 ?>
 						</div>
 					</div>
 					<div class="linha-conteudo">
@@ -151,8 +166,8 @@ $condominio= $con->listarCondominios($_SESSION['UsuarioID']);
                              do{
 						?>
 										<div class="quadro" >
-											<a href="solicitante_editar_condominio.php" title="Editar condomínio"><i class="fas fa-user-edit"></i></a>
-											<i class="fas fa-times-circle" title="Excluir condomínio" onclick="document.getElementById('excluir').style.display='flex'"></i>
+											<a href="solicitante_editar_condominio.php?idc=<?=  $condominio['id'] ?>" title="Editar condomínio"><i class="fas fa-user-edit"></i></a>
+											<i class="fas fa-times-circle" title="Excluir condomínio" onclick="document.getElementById('excluir').style.display='flex'; aprovar(<?=  $condominio['id'] ?>,'<?=  $condominio['nome_cond'] ?>')"></i>
 											<a href="solicitante_info_condominio.php?h=<?=  $condominio['id'] ?>">
 												<div class="quadro-img" style="background-image: url(../src/usuarios_cond/<?=$condominio['id']?>/foto/perfil.jpg);"></div>
 												<div class="quadro-txt"><div><?=  $condominio['nome_cond'] ?></div></div>

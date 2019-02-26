@@ -1,0 +1,178 @@
+<?php  
+require('conexao_adm/conexao_adm.php');
+$con = new ConexaoAdm();
+$id = $_GET['idh'];
+$usuario  = $con->PegarSolicitante($id);
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script>
+	<script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
+
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" type="image/png" href="imagens/favicon.png" />
+	<link rel="icon" type="image/x-icon" href="imagens/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="imagens/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="imagens/favicon.png">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<title>Editar perfil do solicitante - ADM - Qi do condomínio</title>
+  	<script type="text/javascript">
+   		$(document).ready(function(){
+      		$("#cel").mask("99999-9999");
+      		$("#ddd").mask("(99)");
+      		$("#tel").mask("9999-9999");
+      		$("#ddd-tel").mask("(99)");
+      		$("#cnpj").mask("99.999.999/9999-99");
+      		$("#cpf").mask("999.999.999-99");
+      		$("#cep").mask("99999-999");
+      		$("#data").mask("99/99/9999");
+    	});
+		function Voltar() {
+  			window.history.back();
+		}
+  	</script>
+</head>
+<body>
+	<header>
+		<div class="caixalogo">
+			<img src="imagens/logo.png">
+		</div>
+		<h1>do Condomínio</h1>
+		<a href="https://redeecominio.com.br/ecossistema/" target="_blank">
+			<div class="ecossistema">
+				<img src="imagens/ecossistema.png">
+			</div>
+		</a>
+	</header>
+
+	<main>
+		<div class="linha">
+			<a href="" class="iconmenu"><i class="fas fa-bars"></i></a>
+			<div class="cont-menu" id="lateral">
+				<div class="menu-lateral">
+					<nav class="menu2">
+						<ul>
+							<li><a href="adm_principal.html"><i class="fas fa-th"></i> Principal</a></li>
+							<li><a href="adm_mensagens.php#mensagem"><i class="far fa-envelope"></i> Mensagens</a></li>
+							<li><a href="adm_vagas.php#vaga"><i class="fas fa-clipboard"></i> Vagas</a></li>
+							<li><a href="adm_sindicos.php#candidato"><i class="far fa-user"></i> Candidatos</a></li>
+							<li><a href="adm_condominios.php#condominio"><i class="fas fa-building"></i> Condomínios</a></li>
+							<li><a href="adm_solicitantes.php#solicitante"><i class="fas fa-user"></i> Solicitante</a></li>
+							<li><a href="adm_configuracoes.php"><i class="fas fa-cog"></i> Configurações</a></li>
+							<li><a href=""><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="cont-conteudo">
+				<div class="c1">
+					<div class="caminho">
+						<a onclick="Voltar()">
+							<div class="index_btn btn-caminho">
+								<i class="fas fa-arrow-alt-circle-left"></i> Voltar
+							</div>
+						</a>
+						<h2 class="caminho-ativo"><i class="fas fa-user-edit"></i> Editar dados - Solicitante <?= $usuario['nome'] ?></h2>
+					</div>
+						<div class="vaga">
+							<form action="conexao_adm/editar_adm_solicitante.php" method="post" enctype="multpart/form-data">
+							<fieldset>
+								<legend>Dados de login <span style="color: red">*</span></legend>
+								<div class="linha-conteudo">
+									<div class="c2">
+										<input type="email" name="e_mail_cond" placeholder="E-mail" required title="Seu e-mail" value="<?= $usuario['email'] ?>">
+										<input type="text" name="tel_cel_cond" id="cel" placeholder="Telefone / Whatsapp" required title="Seu telefone / whatsapp" style="width: 30%" value="<?= $usuario['celular'] ?>">
+
+									</div>
+									<div class="c2">
+										<input type="password" name="senha_cond" placeholder="Senha" required title="Sua senha">
+										<input type="password" name="confirm_senha_cond" placeholder="Confirmar senha" required title="Confirme a sua senha">
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend>Dados do solicitante <span style="color: red">*</span></legend>
+								<div class="linha-conteudo">
+									<div class="c2">
+										<input type="text" name="nome_soli" placeholder="Nome do solicitante" required title="Seu nome" value="<?= $usuario['nome'] ?>">
+										<input type="text" name="cpf_soli" id="cpf" placeholder="CPF do solicitante"  required title="Seu CPF"  value="<?= $usuario['cpf'] ?>">
+										<input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+										<input type="text" name="funcao_soli" placeholder="No condomínio, o solicitante é" required title="Seu cargo/função no condomínio" value="<?= $usuario['funcao'] ?>">
+										<input type="text" name="tel_fix_soli" id="tel" placeholder="Telefone / Fixo" title="Seu telefone / fixo" style="width: 30%" value="<?= $usuario['tel_fixo'] ?>"><br>
+										<label class="label-tit">Data de nascimento:</label>&nbsp;&nbsp;<input type="text" name="data_aniv_soli" id="data" required title="Sua data de nascimento" style="width: 30%" value="<?= $usuario['data_aniversario'] ?>"><br>
+										<label class="text-super label_tit">Gênero:</label>&nbsp;&nbsp;
+										<?php if($usuario['sexo'] == "masculino"){ ?>
+										<input type="radio" name="genero_soli" value="masculino" checked  title="Seu gênero: masculino"> <label class="text-super opcao">Masculino</label>&nbsp;&nbsp;
+	  									<input type="radio" name="genero_soli" value="feminino" title="Seu gênero: feminino"> <label class="text-super opcao">Feminino</label><br>
+	  								<?php }else{ ?>
+	  									<input type="radio" name="genero_soli" value="masculino"  title="Seu gênero: masculino"> <label class="text-super opcao">Masculino</label>&nbsp;&nbsp;
+	  									<input type="radio" name="genero_soli" value="feminino" checked title="Seu gênero: feminino"> <label class="text-super opcao">Feminino</label><br>
+	  								<?php } ?>
+									</div>
+									<div class="c2">
+									</div>
+								</div>
+							</fieldset>
+								<fieldset>
+									<legend>Dados de localização <span style="color: red">*</span></legend>
+									<div class="linha-conteudo">
+										<div class="c2">
+											<input type="text" name="cep_soli" id="cep" placeholder="CEP" required title="Seu CEP" value="<?= $usuario['cep'] ?>">
+											<select name="pais_soli" required title="Seu país">
+												<option value="">País</option>
+												<option value="br">Brasil</option>
+											</select>
+											<select name="estado_soli" required title="Seu estado">
+												<option value="">Estado</option>
+												<option value="mg">Minas Gerais</option>
+												<option value="pr">Paraná</option>
+												<option value="rj">Rio de Janeiro</option>
+												<option value="sp">São Paulo</option>
+											</select>
+											<input type="text" name="cidade_soli" placeholder="Cidade" required title="Sua cidade" value="<?= $usuario['cidade'] ?>">
+											<input type="text" name="endereco_soli" placeholder="Endereço" required title="Seu endereço" value="<?= $usuario['endereco'] ?>">
+											<input type="text" name="complemento_soli" placeholder="Complemento" title="Seu complemento (se tiver)" value="<?= $usuario['complemento'] ?>">
+											<input type="text" name="numero_soli" placeholder="Número" required title="O número da sua residência" style="width: 16%" value="<?= $usuario['numero'] ?>">
+										</div>
+										<div class="c2">
+										</div>
+									</div>
+								</fieldset>
+							<fieldset>
+								<legend>Imagem de perfil</legend>
+								<div class="linha-conteudo">
+									<div class="c2">
+										<label class="input-file index_btn btn-img"><i class="fas fa-image"></i> Selecione uma imagem de perfil
+											<input type="file" name="Img-perfil_soli"  accept="image/jpeg">
+	    								</label><label class="label-tit"> Perferência <span style="color: red">JPG *</span></label>								
+									</div>
+									<div class="c2">
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<div class="linha-conteudo">
+									<div class="c2">
+										<button type="submit" class="submit">Salvar perfil</button>
+										<button type="reset" class="reset">Cancelar</button>
+									</div>
+									<div class="c2">
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

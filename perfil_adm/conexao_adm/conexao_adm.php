@@ -49,7 +49,7 @@
             }
         }
 
-
+        
         public function listarConversasSindico(){
             $mysqli = $this->conectar();  
             $sql="SELECT * FROM mensagens_sindico_adm order by id Desc";
@@ -63,6 +63,8 @@
             }
         }
 
+      
+
         public function PegaUsuario($id){
             $mysqli = $this->conectar();  
             $sql="SELECT * FROM usuarios WHERE id = $id";
@@ -74,6 +76,39 @@
                 echo "Erro ao Listar!";
             }
         }
+
+        public function listarDadosSind($id) {
+            $mysqli = $this->conectar();
+            $result2=0;
+            $result3=0;
+            $sql="SELECT * FROM usuarios WHERE id = '$id'";//seleciona dados do usuario com base no id recebido
+            $sqlExp="SELECT * FROM exp_profissional WHERE id_usuario = '$id'";//seleciona experiencia profissional do usuario com base no id recebido
+            
+            if ($this->result=$mysqli->query($sql)) {
+                $this->$result2 = $mysqli->query($sqlExp);//experiencia
+
+                $row=mysqli_fetch_assoc($this->result);
+                $rowExp = mysqli_fetch_assoc($this->$result2);
+                $rowEsco = $this->pegaEscolaridade($id);
+
+                return array($row,$rowExp,$rowEsco);//envia as duas informações para a pagina
+            } else {
+                echo "Erro ao Listar!";
+            }
+        }
+
+         private function pegaEscolaridade($id){
+        $sqlEsco="SELECT * FROM ecolaridade WHERE id_usuario = '$id'";//seleciona escolaridade do usuario com base no id recebido
+        $mysqli = $this->conectar();
+        if ($this->result=$mysqli->query($sqlEsco)) {
+            $row=mysqli_fetch_assoc($this->result);
+            return $row; //retorna a escolaridade do usuario
+        } else {
+            echo "Erro ao pegar escolaridade!";
+        }
+     }
+
+
 
         public function PegaTodosUsuario(){
             $mysqli = $this->conectar();  
@@ -111,7 +146,20 @@
             }
         }
 
-        public function PegaEscolaridade($id){
+        public function VerificarUsuarioAprovado($id){
+            $mysqli = $this->conectar();  
+            $sql="SELECT * FROM usuarios WHERE id=$id AND liberado='sim'";
+            
+            if ($this->pegaUsuarioaprovados=$mysqli->query($sql)) {
+                $row=mysqli_fetch_assoc($this->pegaUsuarioaprovados);
+            return $row;//envia as duas informações para a pagina
+            } else {
+                echo "Erro ao Listar!";
+            }
+        }
+
+
+       /* public function PegaEscolaridade($id){
             $mysqli = $this->conectar();  
             $sql="SELECT * FROM escolaridade WHERE id = $id";
             $escolaridade="";
@@ -121,11 +169,23 @@
             } else {
                 echo "Erro ao Listar!";
             }
-        }
+        }*/
 
         public function PegarSolicitante($id){
             $mysqli = $this->conectar();  
             $sql="SELECT * FROM solicitante_cond WHERE id = $id";
+            
+            if ($this->pegaUsuario=$mysqli->query($sql)) {
+                $row=mysqli_fetch_assoc($this->pegaUsuario);
+            return $row;//envia as duas informações para a pagina
+            } else {
+                echo "Erro ao Listar!";
+            }
+        }
+
+        public function PegarTodosSolicitante(){
+            $mysqli = $this->conectar();  
+            $sql="SELECT * FROM solicitante_cond";
             
             if ($this->pegaUsuario=$mysqli->query($sql)) {
                 $row=mysqli_fetch_assoc($this->pegaUsuario);
@@ -192,7 +252,14 @@
         public function AprovarReprovarSindico($sql){
             $mysqli = $this->conectar();  
             if ($mysqli->query($sql)) {
-                $this->emailEnviar();
+            } else {
+                echo "Erro!";
+            }
+        }
+
+        public function AprovarReprovarSolicitante($sql){
+            $mysqli = $this->conectar();  
+            if ($mysqli->query($sql)) {
             } else {
                 echo "Erro!";
             }
@@ -241,6 +308,208 @@
                 echo "Erro ao enviar mensagem";
             }
         }
+
+        public function AtualizarSindico($sql,$id,$nome_empresa,$cargo,$inicio,$fim,$situacao,$array_curso){
+        $mysqli = $this->conectar();
+        if ($mysqli->query($sql)) {
+            $sql2 = "UPDATE exp_profissional SET nome_empresa='$nome_empresa',cargo='$cargo',inicio='$inicio',fim='$fim',situacao='$situacao' WHERE id_usuario='$id'";
+            
+            $this->experiencia($sql2);
+            $this->escolaridade($array_curso,$id);
+           //$this->curriculo($array_curriculo,$id);
+            //$this->fotoPerfilSind($array_foto,$id);
+            header("Location: ../adm_sindico_perfil.php?idh=$id"); exit;
+           
+        } else {
+            echo "Erro ao atualizar tudo";
+        }
+    }
+
+    public function listarDadosSolicitante($id){
+        $mysqli = $this->conectar();
+        $result2=0;
+        
+        $sqlCondSolicitante="SELECT * FROM solicitante_cond WHERE id = '$id'";//seleciona solicitante do usuario com base no id recebido
+        
+        if ($this->result=$mysqli->query($sqlCondSolicitante)) {
+            
+            $rowSolicitante=mysqli_fetch_assoc($this->result);
+            $rowCond = $this->listarCondominios($id);
+            //$rowCond = mysqli_fetch_assoc($this->$result2);
+
+        return array($rowSolicitante,$rowCond/*,$rowCond*/);//envia as duas informações para a pagina
+        } else {
+            echo "Erro ao Listar!";
+        }
+    }
+public function listarVagasCondominios($id){
+        $mysqli = $this->conectar();
+        $result2=0;
+        $sqlVaga="SELECT * FROM vagas_condominio WHERE id_solicitante = '$id'";//seleciona dados do condominio com base no id recebido
+        
+        if ($this->result=$mysqli->query($sqlVaga)) {
+            //$this->$result2 = $mysqli->query($sqlCond);
+
+            $rowVaga=mysqli_fetch_assoc($this->result);
+            //$rowCond = mysqli_fetch_assoc($this->$result2);
+
+        return $rowVaga;
+        } else {
+            echo "Erro ao Listar! vagas";
+        }
+    }
+
+    public function listarCondominios($id){
+        $mysqli = $this->conectar();
+        $result2=0;
+        $sqlCond="SELECT * FROM condominio WHERE id_solicitante = '$id'";//seleciona dados do condominio com base no id recebido
+        
+        if ($this->result=$mysqli->query($sqlCond)) {
+            //$this->$result2 = $mysqli->query($sqlCond);
+
+            $rowCondominio=mysqli_fetch_assoc($this->result);
+            //$rowCond = mysqli_fetch_assoc($this->$result2);
+
+        return $rowCondominio;//envia as duas informações para a pagina
+        } else {
+            echo "Erro ao Listar!";
+        }
+    }
+
+     public function AtualizarSolicitante($sql)
+    {
+        $mysqli = $this->conectar();
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não foi atualizado");
+        }
+    }
+
+    public function DeletarSolicitante($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM solicitante_cond WHERE id = $id";
+        if($mysqli->query($sql)){
+            $this->DeletarVagas($id);
+            $this->DeletarCondominio($id);
+        }else{
+            die("Não deletou solicitante");
+        }
+    }
+    public function DeletarVagas($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM vagas_condominio WHERE id_solicitante = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    public function DeletarCondominio($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM condominio WHERE id_solicitante = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou Condominio");
+        }
+    }
+
+
+    public function DeletarSindico($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM usuarios WHERE id = $id";
+        if($mysqli->query($sql)){
+            $this->DeletarSeguindo($id);
+            $this->DeletaSindicoMensagens($id);
+            $this->DeletaSindicoExperiencia($id);
+            $this->DeletaSindicoEscolaridade($id);
+            $this->DeletaSindicoCandidatoVaga($id);
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    public function DeletarSeguindo($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM seguindo WHERE id_usuario = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    public function DeletaSindicoMensagens($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM mensagens_sindico_adm WHERE id_usuario = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    public function DeletaSindicoExperiencia($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM exp_profissional WHERE id_usuario = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    public function DeletaSindicoEscolaridade($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM ecolaridade WHERE id_usuario = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    public function DeletaSindicoCandidatoVaga($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM candidato_vaga WHERE id_usuario = $id";
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
+    private function experiencia($sql2)
+    {
+        $mysqli = $this->conectar();
+        if($mysqli->query($sql2)){
+            echo "foi experiecia<br>";
+        }else{
+            die("Não foi experiencia");
+        }
+    }
+
+
+    private function escolaridade($array,$id_usuario)
+    {
+        $nome = $array[0];
+        $instituicao = $array[1];
+        $pais = $array[2];
+        $tipo = $array[3];
+        $inicio = $array[4];
+        $conclusao = $array[5];
+        $situacao = $array[6];
+
+        $sql3 = "UPDATE ecolaridade SET nome_curso='$nome', instituicao='$instituicao', pais='$pais', tipo_curso='$tipo',inicio='$inicio',conclusao='$conclusao',situacao='$situacao' WHERE id_usuario='$id_usuario'";
+        $mysqli = $this->conectar();
+        if($mysqli->query($sql3)){
+            echo "foi escolaridade<br>";
+        }else{
+            die("Opaa");
+        }
+    }
 
         private function emailEnviar($nome='mateus',$telefone='565656',$email='',$email_pro=''){
          //1 – Definimos Para quem vai ser enviado o email
