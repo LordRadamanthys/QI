@@ -1,15 +1,15 @@
 <?php
 require('../php/conexao.php');
-//include('conexao.php');
 $con = new Banco();
 
-	if(!empty($_POST['nome'])  && !empty($_POST['senha']) && !empty($_POST['email'])){
+	if(!empty($_POST['nome'])){
         //usuario sindico
 		$nome = isset($_POST['nome']) ? $_POST['nome'] : '';
-		$senha = isset($_POST['senha']) ? base64_encode(sha1('tomaLixo'. $_POST['senha'])) : '';
-		$email = isset($_POST['email']) ? strtolower($_POST['email']) : '';
-        $tel_cel = isset($_POST['tel-cel']) ? $_POST['tel-cel'] : '';
+		//$senha = isset($_POST['senha']) ? base64_encode(sha1('tomaLixo'. $_POST['senha'])) : '';
+		//$email = isset($_POST['email']) ? strtolower($_POST['email']) : '';
+        //$tel_cel = isset($_POST['tel-cel']) ? $_POST['tel-cel'] : '';
         $nivel = isset($_POST['nivel']) ? $_POST['nivel'] : '';
+        $id_usuario = $_POST['id_usuario'];
         
         //dados
         $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : '';
@@ -21,13 +21,13 @@ $con = new Banco();
         $link_video = isset($_POST['link_video']) ? $_POST['link_video'] : '';
 
         //curriculo
-        $curriculo=$_FILES['curriculo']['name'];
+        /*$curriculo=$_FILES['curriculo']['name'];
         $curriculo_nome = $_FILES['curriculo']['name'];
         $curriculo_temp = $_FILES['curriculo']['tmp_name'];
         $curriculo_tipo = $_FILES['curriculo']['type'];
-        $array_curriculo = array($curriculo_nome,$curriculo_temp,$curriculo_tipo);
+        $array_curriculo = array($curriculo_nome,$curriculo_temp,$curriculo_tipo);*/
 
-        //foto
+        
         $foto=$_FILES['Img-perfil']['name'];
         $foto_nome = $_FILES['Img-perfil']['name'];
         $foto_temp = $_FILES['Img-perfil']['tmp_name'];
@@ -53,23 +53,20 @@ $con = new Banco();
         $situacao_curso = isset($_POST['situacao_curso']) ? $_POST['situacao_curso'] : '';
         $array_curso = array($nome_curso,$nome_instituicao,$pais_instituicao,$tipo_curso,$inicio_curso,$conclusao_curso,$situacao_curso);
 
-        //curriculo
+        //exp
         $nome_empresa = isset($_POST['nome_empresa']) ? $_POST['nome_empresa'] : '';
         $cargo = isset($_POST['cargo']) ? $_POST['cargo'] : '';
         $inicio = isset($_POST['inicio_empresa']) ? $_POST['inicio_empresa'] : '';
         $fim = isset($_POST['fim_empresa']) ? $_POST['fim_empresa'] : '';
         $situacao = isset($_POST['situacao']) ? $_POST['situacao'] : '';
-        date_default_timezone_set('America/Sao_Paulo');
-        $data =date ("d-m-Y");
-        $hora = date('H:i:s');
-        $liberado ="nao";
+
+        $liberado ="sim";
 	
 
-		$sql = "INSERT INTO usuarios (nome, email, telefone, senha, cpf, telefone_fixo, data_aniversario, sexo, apresentacao, idiomas, link_video, cep, pais, estado, cidade, endereco, complemento, numero_casa,curriculo,nivel,liberado,data_cadastro,hora_cadastro) 
-                            VALUES('$nome','$email','$tel_cel','$senha','$cpf','$telefone_fix','$data_aniversario','$sexo','$apresentacao','$idiomas','$link_video','$cep','$pais','$estado','$cidade','$endereco','$complemento','$numero_casa','$curriculo','$nivel','$liberado','$data','$hora')";
-		
-        $con->cadastroUsuario($sql, $nome_empresa, $cargo,$inicio,$fim, $situacao,$array_curriculo, $array_foto, $array_curso);
-        
+		$sql = "UPDATE usuarios SET nome='$nome',  cpf='$cpf', telefone_fixo='$telefone_fix', data_aniversario='$data_aniversario', sexo='$sexo', apresentacao='$apresentacao', idiomas='$idiomas', link_video='$link_video', cep='$cep', pais='$pais', estado='$estado', cidade='$cidade', endereco='$endereco', complemento='$complemento', numero_casa='$numero_casa',nivel='$nivel',liberado='$liberado' WHERE id='$id_usuario'";
+
+        $con->AtualizarSindico($sql,$id_usuario, $nome_empresa, $cargo,$inicio,$fim, $situacao, $array_curso, $array_foto);
+        header("Location: ../perfil_sindico/sindico_perfil.php"); exit;
 	}else{
 		die("erro");
 	}

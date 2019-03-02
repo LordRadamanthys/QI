@@ -1,3 +1,13 @@
+<?php 
+require('../php/conexao.php');
+//include('conexao.php');
+$con = new Banco();
+$id = $_GET['idh'];
+$usu    = $con->listarDadosSind($id);
+$sindico = $usu[0];
+$sindico_exp = $usu[1];
+$sindico_esco = $usu[2]
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,24 +113,27 @@
 						<h2 class="caminho-ativo"><i class="fas fa-user-edit"></i> Editar meus dados - Síndico</h2>
 					</div>
 					<div class="vaga">
-						<form>
+						<form action="../paginasPHP/editarSindico.php" method="post" enctype="multipart/form-data">
 							<fieldset>
 								<legend>Dados pessoais <span style="color: red">*</span></legend>
 								<div class="linha-conteudo">
 									<div class="c2">
-										<input type="text" name="nome" placeholder="Nome" required title="Seu nome">
-										<input type="text" name="sobrenome" placeholder="Sobrenome" required title="Seu sobrenome">
-										<input type="text" name="cpf" id="cpf" placeholder="CPF"  required title="Seu CPF">
-										<input type="text" name="ddd_tel_fix" id="ddd-tel" placeholder="DDD" title="Seu ddd do telefone / fixo" style="width: 10%">
-										<input type="text" name="tel_fix" id="tel" placeholder="Telefone / Fixo" title="Seu telefone / fixo" style="width: 30%"><br>
-										<label class="label-tit">Data de aniversário:</label>&nbsp;&nbsp;<input type="date" name="data_aniv" required title="Sua data de aniversário"><br>
+										<input type="text" name="nome" placeholder="Nome" required title="Seu nome" value="<?= $sindico['nome'] ?>">
+										<input type="text" name="cpf" id="cpf" placeholder="CPF"  required title="Seu CPF"  value="<?= $sindico['cpf'] ?>">
+										<input type="text" name="tel_fix" id="tel" placeholder="Telefone / Fixo" title="Seu telefone / fixo" style="width: 30%"  value="<?= $sindico['telefone'] ?>"><br>
+										<label class="label-tit">Data de aniversário:</label>&nbsp;&nbsp;<input type="date" name="data_aniv" required title="Sua data de aniversário"  value="<?= $sindico['data_aniversario'] ?>"><br>
 										<label class="text-super label_tit">Gênero:</label>&nbsp;&nbsp;
+										<?php if($sindico['sexo']=="masculino"){ ?>
 										<input type="radio" name="genero" value="masculino" checked required title="Seu gênero: masculino"> <label class="text-super opcao">Masculino</label>&nbsp;&nbsp;
 	  									<input type="radio" name="genero" value="feminino" title="Seu gênero: feminino"> <label class="text-super opcao">Feminino</label>
+	  								<?php }else{ ?>
+	  									<input type="radio" name="genero" value="masculino"  required title="Seu gênero: masculino"> <label class="text-super opcao">Masculino</label>&nbsp;&nbsp;
+	  									<input type="radio" name="genero" value="feminino" checked title="Seu gênero: feminino"> <label class="text-super opcao">Feminino</label>
+	  								<?php } ?>
 									</div>
 									<div class="c2">
-	  									<textarea placeholder="Apresentação" name="apresentacao" required title="Uma breve apresentação sua"></textarea>
-	  									<input type="text" placeholder="Idioma (as)" name="idiomas" title="Idiomas que você fala">
+	  									<textarea placeholder="Apresentação" name="apresentacao" required title="Uma breve apresentação sua"><?= $sindico['apresentacao'] ?></textarea>
+	  									<input type="text" placeholder="Idioma (as)" name="idiomas" title="Idiomas que você fala" value="<?= $sindico['idiomas'] ?>">
 									</div>
 								</div>
 							</fieldset>
@@ -128,7 +141,7 @@
 								<legend>Apresentação do Candidato</legend>
 								<div class="linha-conteudo">
 									<div class="c2">
-										<input type="text" name="link_video" placeholder="Link do vídeo" required title="O link do seu vídeo (Youtube, Vimeo, etc)">
+										<input type="text" name="link_video" placeholder="Link do vídeo" required title="O link do seu vídeo (Youtube, Vimeo, etc)" value="<?= $sindico['link_video'] ?>">
 										<label class="input-file index_btn"><i class="fas fa-upload"></i>&nbsp;&nbsp;Upload do seu currículo
 	    									<input type="file" name="curriculo" placeholder="Envie o seu currículo" required title="Envie o seu currículo" accept="application/pdf">
 	    								</label><label class="label-tit"> Perferência <span style="color: red">PDF *</span></label>	
@@ -141,7 +154,7 @@
 								<legend>Dados de localização <span style="color: red">*</span></legend>
 								<div class="linha-conteudo">
 									<div class="c2">
-										<input type="text" name="cep" id="cep" placeholder="CEP" required title="Seu CEP">
+										<input type="text" name="cep" id="cep" placeholder="CEP" required title="Seu CEP" value="<?= $sindico['cep'] ?>">
 										<select name="pais" required title="Seu país">
 											<option value="">País</option>
 											<option value="br">Brasil</option>
@@ -153,10 +166,10 @@
 											<option value="rj">Rio de Janeiro</option>
 											<option value="sp">São Paulo</option>
 										</select>
-										<input type="text" name="cidade" placeholder="Cidade" required title="Sua cidade">
-										<input type="text" name="endereco" placeholder="Endereço" required title="Seu endereço">
-										<input type="text" name="complemento" placeholder="Complemento" title="Seu complemento (se tiver)">
-										<input type="text" name="numero" placeholder="Número" required title="O número da sua residência" style="width: 16%">
+										<input type="text" name="cidade" placeholder="Cidade" required title="Sua cidade" value="<?= $sindico['cidade'] ?>">
+										<input type="text" name="endereco" placeholder="Endereço" required title="Seu endereço" value="<?= $sindico['endereco'] ?>">
+										<input type="text" name="complemento" placeholder="Complemento" title="Seu complemento (se tiver)" value="<?= $sindico['complemento'] ?>">
+										<input type="text" name="numero" placeholder="Número" required title="O número da sua residência" style="width: 16%" value="<?= $sindico['numero_casa'] ?>">
 									</div>
 								</div>
 							</fieldset>
@@ -164,21 +177,32 @@
 								<legend>Escolaridade / Cursos</legend>
 								<div class="linha-conteudo">
 									<div class="c2">
-										<input type="text" name="nome_curso" placeholder="Nome do curso" title="Nome do curso">
-										<input type="text" name="nome_instituicao" placeholder="Nome da Instituição" title="Nome da intituição (publica ou particular)">
-										<input type="text" name="pais_instituicao" placeholder="País onde cursou" title="País onde cursou">
+										<input type="text" name="nome_curso" placeholder="Nome do curso" title="Nome do curso" value="<?= $sindico_esco['nome_curso'] ?>">
+										<input type="text" name="nome_instituicao" placeholder="Nome da Instituição" title="Nome da intituição (publica ou particular)" value="<?= $sindico_esco['instituicao'] ?>">
+										<input type="hidden" name="id_usuario" value="<?= $sindico['id'] ?>">
+										<input type="text" name="pais_instituicao" placeholder="País onde cursou" title="País onde cursou" value="<?= $sindico_esco['pais'] ?>">
 										<select name="tipo_curso" title="Tipo do curso">
 											<option value="">Tipo de curso</option>
-											<option value="pres">Pressencial</option>
-											<option value="pres">Semi-pressencial</option>
-											<option value="pres">A distância</option>
+											<option value="pressencial">Pressencial</option>
+											<option value="semi_pressencial">Semi-pressencial</option>
+											<option value="distância">A distância</option>
 										</select><br>
-										<label class="label-tit">Início do curso:</label>&nbsp;&nbsp;<input type="date" name="inicio_curso"  title="Início do curso"><br>
-										<label class="label-tit">Conclusão do curso:</label>&nbsp;&nbsp;<input type="date" name="conclusao_curso"  title="Conclusão do curso"><br>
+										<label class="label-tit">Início do curso:</label>&nbsp;&nbsp;<input type="date" name="inicio_curso"  title="Início do curso" value="<?= $sindico_esco['inicio'] ?>"><br>
+										<label class="label-tit">Conclusão do curso:</label>&nbsp;&nbsp;<input type="date" name="conclusao_curso"  title="Conclusão do curso" value="<?= $sindico_esco['fim'] ?>"><br>
 										<label class="text-super label-tit">Situação:</label>&nbsp;&nbsp;
+										<?php if($sindico_esco['nome_curso'] =="interrompido"){?>
 										<input type="radio" name="situacao_curso" value="interrompido" checked title="Sua situação referênte ao curso: interrompido"> <label class="text-super opcao">Interrompido</label>&nbsp;&nbsp;
 	  									<input type="radio" name="situacao_curso" value="cursando" title="Sua situação referênte ao curso: cursando"> <label class="text-super opcao">Cursando</label>&nbsp;&nbsp;
 	  									<input type="radio" name="situacao_curso" value="concluido" title="Sua situação referênte ao curso: concluído"> <label class="text-super opcao">Concluído</label><br>
+	  								<?php }else if($sindico_esco['nome_curso'] =="cursando"){ ?>
+	  									<input type="radio" name="situacao_curso" value="interrompido"  title="Sua situação referênte ao curso: interrompido"> <label class="text-super opcao">Interrompido</label>&nbsp;&nbsp;
+	  									<input type="radio" name="situacao_curso" value="cursando" checked title="Sua situação referênte ao curso: cursando"> <label class="text-super opcao">Cursando</label>&nbsp;&nbsp;
+	  									<input type="radio" name="situacao_curso" value="concluido" title="Sua situação referênte ao curso: concluído"> <label class="text-super opcao">Concluído</label><br>
+	  								<?php }else{ ?>
+	  									<input type="radio" name="situacao_curso" value="interrompido"  title="Sua situação referênte ao curso: interrompido"> <label class="text-super opcao">Interrompido</label>&nbsp;&nbsp;
+	  									<input type="radio" name="situacao_curso" value="cursando"  title="Sua situação referênte ao curso: cursando"> <label class="text-super opcao">Cursando</label>&nbsp;&nbsp;
+	  									<input type="radio" name="situacao_curso" value="concluido" checked title="Sua situação referênte ao curso: concluído"> <label class="text-super opcao">Concluído</label><br>
+	  								<?php } ?>
 									</div>
 									<div class="c2">
 										<a href="" title="Adicionar mais uma escolaridade / curso">
@@ -193,12 +217,16 @@
 								<legend>Experiência profissional</legend>
 								<div class="linha-conteudo">
 									<div class="c2">
-										<input type="text" name="nome_empresa" placeholder="Nome da empresa" title="Nome da empresa">
-										<input type="text" name="cargo" placeholder="Cargo" title="Nome do cargo"><br>
-										<label class="label-tit">Período início:</label>&nbsp;&nbsp;<input type="date" name="inicio_empresa" title="Data de ínicio na empresa"><br>
-										<label class="label-tit">Período fim:</label>&nbsp;&nbsp;<input type="date" name="fim_empresa" title="Data de término na empresa (Se ainda estiver trabalhando, deixe vazio)"><br>
+										<input type="text" name="nome_empresa" placeholder="Nome da empresa" title="Nome da empresa" value="<?= $sindico_exp['nome_empresa'] ?>">
+										<input type="text" name="cargo" placeholder="Cargo" title="Nome do cargo" value="<?= $sindico_exp['cargo'] ?>"><br>
+										<label class="label-tit">Período início:</label>&nbsp;&nbsp;<input type="date" name="inicio_empresa" title="Data de ínicio na empresa" value="<?= $sindico_exp['inicio'] ?>"><br>
+										<label class="label-tit">Período fim:</label>&nbsp;&nbsp;<input type="date" name="fim_empresa" title="Data de término na empresa (Se ainda estiver trabalhando, deixe vazio)" value="<?= $sindico_exp['fim'] ?>"><br>
 										<label class="text-super">Situação:</label>&nbsp;&nbsp;
-										<input type="checkbox" name="situacao-profissional" value="trabalhando" title="Sua situação na empresa, assinale apenas se ainda estiver trabalhando nela"> <label class="text-super opcao" style="vertical-align:60%;">Trabalhando</label>
+										<?php if($sindico_exp['situacao']=="trabalhando"){ ?>
+										<input type="checkbox" name="situacao" checked="" value="trabalhando" title="Sua situação na empresa, assinale apenas se ainda estiver trabalhando nela"> <label class="text-super opcao" style="vertical-align:60%;">Trabalhando</label>
+									<?php }else{ ?>
+										<input type="checkbox" name="situacao" value="trabalhando" title="Sua situação na empresa, assinale apenas se ainda estiver trabalhando nela"> <label class="text-super opcao" style="vertical-align:60%;">Trabalhando</label>
+									<?php } ?>
 									</div>
 									<div class="c2">
 										<a href="" title="Adicionar mais uma experiência profissional">

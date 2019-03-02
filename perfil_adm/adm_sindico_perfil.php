@@ -44,6 +44,11 @@ function aprovar(valor, nome) {
     document.getElementById('reprovado2').value = valor;
     document.getElementById('question2').innerHTML = nome;
 }
+function enviarEmail(id, email, nome) {
+    document.getElementById('nome_email').value = nome;
+    document.getElementById('email_enviar').value = email;
+    document.getElementById('id_email').value = id;
+}
 
 </script>
 </head>
@@ -117,7 +122,10 @@ function aprovar(valor, nome) {
 						<div class="excluir-txt" style="background-color: #c7c7c7">
 							<form style="display: inline-block; text-align: center; margin-top: -2px;" >
 								Escreva o texto da notificação
-								<textarea name="mensagem" placeholder="Escreva uma mensagem"></textarea>
+								<input type="hidden" name="id_email" id="id_email">
+								<input type="hidden" name="email_enviara" id="email_enviar">
+								<input type="hidden" name="nome_emaila" id="nome_email">
+								<textarea  required="" name="mensagem" placeholder="Escreva uma mensagem"></textarea>
 								<button type="submit" class="submit" style="margin-top: 10px;">Enviar</button>
 								<button class="reset" onclick="document.getElementById('notificar').style.display='none'">Cancelar</button>
 							</form>
@@ -154,7 +162,7 @@ function aprovar(valor, nome) {
 												<?php }else if($con->VerificarUsuarioAprovado($id)>0){ ?>
 												<form style="padding-bottom: 10px">	
 												Depois de ser aprovado aparecem essas opções:			
-													<button type="reset" class="submit" onclick="document.getElementById('notificar').style.display='flex'">Notificar o síndico</button>
+													<button type="reset" class="submit" onclick="document.getElementById('notificar').style.display='flex';enviarEmail('<?= $dados_usuario["id"] ?>', '<?= $dados_usuario["email"] ?>', '<?= $dados_usuario["nome"] ?>')">Notificar o síndico</button>
 													<button type="reset" class="reset" onclick="document.getElementById('excluir').style.display='flex'; aprovar(<?= $id?>,'<?= $dados_usuario["nome"] ?>')">Excluir o síndico</button>
 													<a href="adm_sindico_editar_form.php?idh=<?= $dados_usuario["id"] ?>" style="margin-top: 5px">
 														<div class="index_btn btn-reg">

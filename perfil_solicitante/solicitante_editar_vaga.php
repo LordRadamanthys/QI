@@ -1,3 +1,11 @@
+<?php
+require('../php/conexao.php');
+$con = new Banco();
+$con->verificaLoginSoli();
+$id = $_GET['idh'];
+$vaga  = $con->PegarVaga($id);
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 	<script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script>
 	<script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
+	<script type="text/javascript" src="js/jquery.maskMoney.min.js"></script>
 
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 	<link rel="icon" type="image/png" href="imagens/favicon.png" />
@@ -25,11 +34,23 @@
       		$("#cnpj").mask("99.999.999/9999-99");
       		$("#cpf").mask("999.999.999-99");
       		$("#cep").mask("99999-999");
+			$("#dinheiro").maskMoney({symbol:'R$: ', thousands:'.', decimal:',', symbolStay: true});
+			$("#dataNascimento").mask("99/99/9999");
     	});
 		function Voltar() {
   			window.history.back();
 		}
-  	</script>
+    </script>
+<!--       		$("#cep").mask("99999-999");
+//       		$("#money").mask("9,99");
+// $('#rg').mask('99.999.999-9');
+// $('#placaCarro').mask('AAA-9999');
+// $('#horasMinutos').mask('99:99');
+// 
+// $('#estado').mask('AA');
+// $('#cartaoCredito').mask('9999 9999 9999 9999');
+     	// });
+    </script> -->
 </head>
 <body>
 
@@ -99,88 +120,32 @@
 								<i class="fas fa-arrow-alt-circle-left"></i> Voltar
 							</div>
 						</a>
-						<h2 class="caminho-ativo"><i class="fas fa-user-edit"></i> Editar meus dados - Solicitante</h2>
+						<h2 class="caminho-ativo"><i class="fas fa-clipboard"></i> Editar vaga</h2>
 					</div>
-						<div class="vaga">
-							<form>
-							<fieldset>
-								<legend>Dados de login <span style="color: red">*</span></legend>
-								<div class="linha-conteudo">
-									<div class="c2">
-										<input type="email" name="e_mail_cond" placeholder="E-mail" required title="Seu e-mail">
-										<input type="text" name="ddd_tel_cel_cond" id="ddd" placeholder="DDD" required title="Seu ddd do telefone / whatsspp" style="width: 10%">
-										<input type="text" name="tel_cel_cond" id="cel" placeholder="Telefone / Whatsapp" required title="Seu telefone / whatsapp" style="width: 30%">
-
-									</div>
-									<div class="c2">
-										<input type="password" name="senha_cond" placeholder="Senha" required title="Sua senha">
-										<input type="password" name="confirm_senha_cond" placeholder="Confirmar senha" required title="Confirme a sua senha">
-									</div>
-								</div>
-							</fieldset>
+					<div class="vaga">
+						<form method="post" action="../paginasPHP/editarVaga.php">
 							<fieldset>
 								<legend>Dados do solicitante <span style="color: red">*</span></legend>
 								<div class="linha-conteudo">
 									<div class="c2">
-										<input type="text" name="nome_soli" placeholder="Nome do solicitante" required title="Seu nome">
-										<input type="text" name="sobrenome_soli" placeholder="Sobrenome do solicitante" required title="Seu sobrenome">
-										<input type="text" name="cpf_soli" id="cpf" placeholder="CPF do solicitante"  required title="Seu CPF">
-										<input type="text" name="funcao_soli" placeholder="No condomínio, o solicitante é" required title="Seu cargo/função no condomínio">
-										<input type="text" name="ddd_tel_fix_soli" id="ddd-tel" placeholder="DDD" title="Seu ddd do telefone / fixo" style="width: 10%">
-										<input type="text" name="tel_fix_soli" id="tel" placeholder="Telefone / Fixo" title="Seu telefone / fixo" style="width: 30%"><br>
-										<label class="label-tit">Data de aniversário:</label>&nbsp;&nbsp;<input type="date" name="data_aniv_soli" required title="Sua data de aniversário"><br>
-										<label class="text-super label_tit">Gênero:</label>&nbsp;&nbsp;
-										<input type="radio" name="genero_soli" value="masculino" checked required title="Seu gênero: masculino"> <label class="text-super opcao">Masculino</label>&nbsp;&nbsp;
-	  									<input type="radio" name="genero_soli" value="feminino" title="Seu gênero: feminino"> <label class="text-super opcao">Feminino</label><br>
+										
+										<select name="posicao_vaga" required title="Posição da vaga">
+											<option value="">Posição</option>
+											<option value="sindico">Síndico (a)</option>
+											<option value="gerente">Gerente predial</option>
+											<option value="aadministrador">Administrador (a)</option>
+										</select><br>
+										<label class="label-tit">Perído de trabalho (em horas):</label>&nbsp;&nbsp;<input type="time" min="00:00" max="24:00" name="periodo_vaga" required title="Período de trabalho" value="<?= $vaga['horas_trabalho'] ?>">
+										<input type="text" name="nivel_escolaridade_vaga" placeholder="Nível de escolaridade" required title="Nível de escolaridade para a vaga" value="<?= $vaga['nivel_escolaridade'] ?>">
+										<input type="text" name="honorario_vaga" id="dinheiro" placeholder="Honorário" required title="Honorário para a vaga" value="<?= $vaga['honorario'] ?>">
+  										<textarea name="descricao_vaga" placeholder="Descrição da vaga" required title="Descrição da vaga"><?= $vaga['descricao'] ?></textarea>
+  										<input type="hidden" name="id_vaga" value="<?= $id ?>">
 									</div>
 									<div class="c2">
-									</div>
-								</div>
-							</fieldset>
-								<fieldset>
-									<legend>Dados de localização <span style="color: red">*</span></legend>
-									<div class="linha-conteudo">
-										<div class="c2">
-											<input type="text" name="cep_soli" id="cep" placeholder="CEP" required title="Seu CEP">
-											<select name="pais_soli" required title="Seu país">
-												<option value="">País</option>
-												<option value="br">Brasil</option>
-											</select>
-											<select name="estado_soli" required title="Seu estado">
-												<option value="">Estado</option>
-												<option value="mg">Minas Gerais</option>
-												<option value="pr">Paraná</option>
-												<option value="rj">Rio de Janeiro</option>
-												<option value="sp">São Paulo</option>
-											</select>
-											<input type="text" name="cidade_soli" placeholder="Cidade" required title="Sua cidade">
-											<input type="text" name="endereco_soli" placeholder="Endereço" required title="Seu endereço">
-											<input type="text" name="complemento_soli" placeholder="Complemento" title="Seu complemento (se tiver)">
-											<input type="text" name="numero_soli" placeholder="Número" required title="O número da sua residência" style="width: 16%">
-										</div>
-										<div class="c2">
-										</div>
-									</div>
-								</fieldset>
-							<fieldset>
-								<legend>Imagem de perfil</legend>
-								<div class="linha-conteudo">
-									<div class="c2">
-										<label class="input-file index_btn btn-img"><i class="fas fa-image"></i> Selecione uma imagem de perfil
-											<input type="file" name="Img-perfil_soli"  accept="image/jpeg">
-	    								</label><label class="label-tit"> Perferência <span style="color: red">JPG *</span></label>								
-									</div>
-									<div class="c2">
-									</div>
-								</div>
-							</fieldset>
-							<fieldset>
-								<div class="linha-conteudo">
-									<div class="c2">
-										<button type="submit" class="submit">Salvar perfil</button>
+  										<textarea placeholder="Competências da vaga" name="competencias_vaga" required title="Competências da vaga"><?= $vaga['competencias'] ?></textarea>
+  										<textarea placeholder="Requesitos da vaga" name="requesitos_vaga" required title="requesitos da vaga"><?= $vaga['requisitos'] ?></textarea><br><br>
+										<button type="submit" class="submit">Adicionar vaga</button>
 										<button type="reset" class="reset">Cancelar</button>
-									</div>
-									<div class="c2">
 									</div>
 								</div>
 							</fieldset>

@@ -34,10 +34,13 @@ $dados_cod = $usu[1];
 function aprovar(valor, nome) {
     document.getElementById('reprovado').value = valor;
     document.getElementById('question').innerHTML = nome;
-
-    
 }
 
+function enviarEmail(id, email, nome) {
+    document.getElementById('nome_email').value = nome;
+    document.getElementById('email_enviar').value = email;
+    document.getElementById('id_email').value = id;
+}
 </script>
 </head>
 <body>
@@ -95,9 +98,12 @@ function aprovar(valor, nome) {
 						<div class="excluir-txt" style="background-color: #c7c7c7">
 							<form style="display: inline-block; text-align: center; margin-top: -2px;" >
 								Escreva o texto da notificação
-								<textarea name="mensagem" placeholder="Escreva uma mensagem"></textarea>
+								<input type="hidden" name="id_email" id="id_email">
+							<input type="hidden" name="email_enviara" id="email_enviar">
+							<input type="hidden" name="nome_emaila" id="nome_email">
+							<textarea  required="" name="mensagem" placeholder="Escreva uma mensagem"></textarea>
 								<button type="submit" class="submit" style="margin-top: 10px;">Enviar</button>
-								<button class="reset" onclick="document.getElementById('notificar').style.display='none'">Cancelar</button>
+								<button class="reset" type="reset" onclick="document.getElementById('notificar').style.display='none'">Cancelar</button>
 							</form>
 						</div>
 					</div>
@@ -120,7 +126,7 @@ function aprovar(valor, nome) {
 											<div class="texto">
 												<form style="padding-bottom: 10px">				
 													<form style="padding-bottom: 10px">				
-														<button type="reset" class="submit" onclick="document.getElementById('notificar').style.display='flex'">Notificar o solicitante</button>
+														<button type="reset" class="submit" onclick="document.getElementById('notificar').style.display='flex';enviarEmail('<?= $dados_solicitante["id"] ?>', '<?= $dados_solicitante["email"] ?>', '<?= $dados_solicitante["nome"] ?>')">Notificar o solicitante</button>
 														<button type="reset" class="reset" onclick="document.getElementById('excluir').style.display='flex';aprovar(<?= $dados_solicitante["id"] ?>,'<?= $dados_solicitante["nome"] ?>')">Excluir o solicitante</button>
 														<a href="adm_solicitante_editar_form.php?idh=<?= $dados_solicitante["id"] ?>" style="margin-top: 5px">
 															<div class="index_btn btn-reg">

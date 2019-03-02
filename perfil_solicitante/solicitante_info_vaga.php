@@ -31,6 +31,13 @@ $dados_vaga = $con->listarVagasCondominiosIdCond($id_vaga);
 		function Voltar() {
   			window.history.back();
 		}
+
+		function aprovar(valor, nome, cond) {
+		    document.getElementById('aprovado').value = valor;
+		    document.getElementById('question').innerHTML = nome;
+		    document.getElementById('condi').innerHTML = cond;
+
+		}
   	</script>
 </head>
 <body>
@@ -105,8 +112,9 @@ $dados_vaga = $con->listarVagasCondominiosIdCond($id_vaga);
 					</div>
 					<div class="pop-up-excluir" id="excluir">
 						<div class="excluir-txt">
-							Você tem certeza que quer excluir a vaga (Nome da vaga) do (Condomínio)?
-							<form>
+							Você tem certeza que quer excluir a vaga <i><span id="question"></span></i> do <span id="condi"></span>?
+							<form action="../paginasPHP/excluirVaga.php" method="post">
+								<input type="hidden" id="aprovado" name="aprovado">
 								<button type="submit" class="submit" style="margin-bottom: 10px">Sim</button>
 								<button type="reset" class="reset" onclick="document.getElementById('excluir').style.display='none'">Não</button>
 							</form>
@@ -117,8 +125,8 @@ $dados_vaga = $con->listarVagasCondominiosIdCond($id_vaga);
 							<div class="vagas-opcao-cont">
 								<div class="texto texto-infos-vagas">
 									<div class="banner-perfil">
-										<a href="solicitante_editar_vaga.html" title="Editar vaga"><i class="fas fa-user-edit"></i></a>
-										<i class="fas fa-times-circle" title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+										<a href="solicitante_editar_vaga.php?idh=<?= $dados_vaga['id'] ?>" title="Editar vaga"><i class="fas fa-user-edit"></i></a>
+										<i class="fas fa-times-circle" title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex';aprovar(<?=  $dados_vaga['id'] ?>,'<?=  $dados_vaga['posicao'] ?>', '<?=  $dados_cond['nome_cond'] ?>')"></i>
 										<div class="linha">
 											<div class="img-perfil-conteudo" style="background-image: url(../src/usuarios_cond/<?= $dados_cond['id'] ?>/foto/perfil.jpg);"></div>
 											<div class="nome-perfil">

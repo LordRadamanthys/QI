@@ -81,16 +81,19 @@
         $ext = strtolower(substr($a[0],-4)); //Pegando extensão do arquivo
         mkdir('C:/xampp/htdocs/QI/src/usuarios_sind/'.$id.'/curriculo/', 0777, true);
         if (move_uploaded_file($a[1],'../src/usuarios_sind/'.$id.'/curriculo/'.$a[0].$ext)) {
-            echo('foi curriculo<br>');
-            
+            echo('foi curriculo<br>');     
         }else{
             echo 'erro curriculo: '.$a[0].'<br>'.$a[1].'<br>'.$a[2].'<br>'.$id;
         }
     }
-
-    private function fotoPerfilSind($a,$id)
+   
+    private function fotoPerfilSind($a,$id,$k='')
     {   
         $ext = strtolower(substr($a[0],-4)); //Pegando extensão do arquivo
+        if($k==1){
+            move_uploaded_file($a[1],'../src/usuarios_sind/'.$id.'/foto/1.jpg');
+        
+    }else{
         mkdir('C:/xampp/htdocs/QI/src/usuarios_sind/'.$id.'/foto/', 0777, true);
         if (move_uploaded_file($a[1],'../src/usuarios_sind/'.$id.'/foto/1.jpg')) {
             echo('foi foto<br>');
@@ -99,6 +102,8 @@
             echo 'erro sind: '.$a[0].'<br>'.$a[1].'<br>'.$a[2].'<br>'.$id;
         }
     }
+    }
+
     //*************Solicitante************************ */
     public function cadastroCondominioSolicitante($sql,$array_foto){
         $mysqli = $this->conectar();
@@ -135,8 +140,6 @@
             echo "Erro ao inserir cond";
         }
     }
-
-    
 
     private function fotoPerfilCond($a,$id,$k='')
     {   
@@ -189,6 +192,26 @@
         }
     }
 
+    public function PegarVaga($id){
+            $mysqli = $this->conectar();  
+            $sql="SELECT * FROM vagas_condominio WHERE id = $id";
+            
+            if ($this->pegaUsuario=$mysqli->query($sql)) {
+                $row=mysqli_fetch_assoc($this->pegaUsuario);
+            return $row;//envia as duas informações para a pagina
+            } else {
+                echo "Erro ao Listar!";
+            }
+        }
+ public function AtualizarSolicitante($sql)
+    {
+        $mysqli = $this->conectar();
+        if($mysqli->query($sql)){
+            
+        }else{
+            die("Não foi atualizado");
+        }
+    }
 
     public function listarDadosSolicitante($id){
         $mysqli = $this->conectar();
@@ -319,16 +342,19 @@
             echo "erro ao pegar";
         }
     }
-  public function AtualizarCondominio($sql, $array_foto,$id){
+    public function AtualizarCondominio($sql, $array_foto,$id){
             $mysqli = $this->conectar();  
             if ($mysqli->query($sql)) {
                 $path = "../src/usuarios_cond/$id/foto/perfil.jpg";
+                if($array_foto[0]!=""){
                  unlink($path);
                 $this->fotoPerfilCond($array_foto,$id,1);
+                }
             } else {
                 echo "Erro ao Atualizar condominio!";
             }
-        }
+    }
+
 
         public function DeletarVagas($id){
         $mysqli = $this->conectar();
@@ -339,6 +365,17 @@
             die("Não deletou vaga");
         }
     }
+
+    public function DeletarVagasId($id){
+        $mysqli = $this->conectar();
+        $sql = "DELETE FROM vagas_condominio WHERE id = $id";
+        if($mysqli->query($sql)){
+            header("Location: ../perfil_solicitante/solicitante_painel_vagas.php"); exit;
+        }else{
+            die("Não deletou vaga");
+        }
+    }
+
     public function DeletarSeguindo($id){
         $mysqli = $this->conectar();
         $sql = "DELETE FROM seguindo WHERE id_condominio = $id";
@@ -394,6 +431,15 @@
         if ($mysqli->query($sql)) {
             //$id = $mysqli->insert_id;
              header("Location: ../perfil_solicitante/solicitante_painel_vagas.php"); exit;
+        } else {
+            echo "Erro ao inserir VAGA";
+        }
+    }
+
+    public function EditarVaga($sql){
+        $mysqli = $this->conectar();
+        if ($mysqli->query($sql)) {
+            header("Location: ../perfil_solicitante/solicitante_painel_vagas.php"); exit;
         } else {
             echo "Erro ao inserir VAGA";
         }
@@ -487,6 +533,59 @@
             echo "Erro ao pegar escolaridade!";
         }
      }
+
+
+     public function AtualizarSindico($sql,$id,$nome_empresa,$cargo,$inicio,$fim,$situacao,$array_curso,$array_foto){
+        $mysqli = $this->conectar();
+        if ($mysqli->query($sql)) {
+            $sql2 = "UPDATE exp_profissional SET nome_empresa='$nome_empresa',cargo='$cargo',inicio='$inicio',fim='$fim',situacao='$situacao' WHERE id_usuario='$id'";
+            
+            $this->AlteraExperiencia($sql2);
+            $this->AlteraEscolaridade($array_curso,$id);
+            $path = "../src/usuarios_sind/$id/foto/1.jpg";
+            if($array_foto[0]!=""){
+                 unlink($path);
+                $this->fotoPerfilSind($array_foto,$id,1);
+                }
+           //$this->curriculo($array_curriculo,$id);
+            //$this->fotoPerfilSind($array_foto,$id);
+           // header("Location: ../adm_sindico_perfil.php?idh=$id"); exit;
+           
+        } else {
+            echo "Erro ao atualizar tudo";
+        }
+    }
+
+
+    private function AlteraExperiencia($sql2)
+    {
+        $mysqli = $this->conectar();
+        if($mysqli->query($sql2)){
+            echo "foi experiecia<br>";
+        }else{
+            die("Não foi experiencia");
+        }
+    }
+
+
+    private function AlteraEscolaridade($array,$id_usuario)
+    {
+        $nome = $array[0];
+        $instituicao = $array[1];
+        $pais = $array[2];
+        $tipo = $array[3];
+        $inicio = $array[4];
+        $conclusao = $array[5];
+        $situacao = $array[6];
+
+        $sql3 = "UPDATE ecolaridade SET nome_curso='$nome', instituicao='$instituicao', pais='$pais', tipo_curso='$tipo',inicio='$inicio',conclusao='$conclusao',situacao='$situacao' WHERE id_usuario='$id_usuario'";
+        $mysqli = $this->conectar();
+        if($mysqli->query($sql3)){
+            echo "foi escolaridade<br>";
+        }else{
+            die("Opaa");
+        }
+    }
 
 
      public function listarTodasVagas(){
@@ -754,7 +853,4 @@
         }
     }
     }
-/*
-    $teste = new Banco;
-
-    $teste->conectar();*/
+?>

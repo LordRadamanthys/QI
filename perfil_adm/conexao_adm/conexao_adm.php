@@ -183,6 +183,18 @@
             }
         }
 
+        public function PegarVaga($id){
+            $mysqli = $this->conectar();  
+            $sql="SELECT * FROM vagas_condominio WHERE id = $id";
+            
+            if ($this->pegaUsuario=$mysqli->query($sql)) {
+                $row=mysqli_fetch_assoc($this->pegaUsuario);
+            return $row;//envia as duas informações para a pagina
+            } else {
+                echo "Erro ao Listar!";
+            }
+        }
+
         public function PegarTodosSolicitante(){
             $mysqli = $this->conectar();  
             $sql="SELECT * FROM solicitante_cond";
@@ -511,16 +523,16 @@ public function listarVagasCondominios($id){
         }
     }
 
-        private function emailEnviar($nome='mateus',$telefone='565656',$email='',$email_pro=''){
+        public function emailEnviar($nome,$email_para,$mensagem){
          //1 – Definimos Para quem vai ser enviado o email
-          $para = "matosmateu@gmail.com";
-          $assunto = "TESTE";
+          $para = $email_para;
+          $assunto = "Administrativo";
            //2 – Agora definimos a  mensagem que vai ser enviado no e-mail
-          $mensagem = "<h1>Segue os dados do novo apoiador</h1><br>";
+          /*$mensagem = "<h1>Segue os dados do novo apoiador</h1><br>";
           $mensagem .= "<strong>Nome:  </strong>".$nome;
           $mensagem .= "<br><strong>Telefone:  </strong>".$telefone;
           $mensagem .= "<br><strong>Email:  </strong>".$email;
-          $mensagem .= "<br><strong>Email Profissional:  </strong>".$email_pro;
+          $mensagem .= "<br><strong>Email Profissional:  </strong>".$email_pro;*/
 
          
         //3 – agora inserimos as codificações corretas e  tudo mais.

@@ -124,17 +124,11 @@ function aprovar(valor, nome) {
 					<div class="pop-up-excluir" id="excluir">
 						<div class="excluir-txt">
 							Você tem certeza que quer excluir o <span id="question"></span>?
-							<form method="post">
+							<form action="../paginasPHP/excluirCondominio.php" method="post">
 								<input type="hidden" id="aprovado" name="aprovado">
 								<button type="submit" class="submit" style="margin-bottom: 10px">Sim</button>
 								<button type="reset" class="reset" onclick="document.getElementById('excluir').style.display='none'">Não</button>
 							</form>
-							<?php 
-								if(isset($_POST['aprovado'])){
-									$con->DeletarCondominio($_POST['aprovado']);
-									
-								}
-							 ?>
 						</div>
 					</div>
 					<div class="linha-conteudo">

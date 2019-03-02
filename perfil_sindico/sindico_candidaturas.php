@@ -93,7 +93,7 @@ $condominios = $con->listarTodosCondominios();
 					<div class="img-perfil" style="background-image: url(../src/usuarios_sind/<?= $_SESSION['UsuarioID'] ?>/foto/1.jpg);"></div>
 					<nav class="menu2">
 						<ul>
-							<li><a href="sindico_principal.html"><i class="far fa-user"></i> Principal</a></li>
+							<li><a href="sindico_principal.php"><i class="far fa-user"></i> Principal</a></li>
 							<li><a href="sindico_painel_vagas.php"><i class="fas fa-clipboard"></i> Vagas</a></li>
 							<li><a href="sindico_painel_seguindo.php"><i class="far fa-building"></i> Seguindo</a></li>
 							<li><a href="sindico_painel_condominio.php"><i class="fas fa-building"></i> Condomínios</a></li>

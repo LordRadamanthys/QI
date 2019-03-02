@@ -40,6 +40,12 @@ function aprovar(valor, nome) {
     document.getElementById('question3').innerHTML = nome;
 }
 
+function enviarEmail(id, email, nome) {
+    document.getElementById('nome_email').value = nome;
+    document.getElementById('email_enviar').value = email;
+    document.getElementById('id_email').value = id;
+}
+
 </script>
 </head>
 <body id="principal">
@@ -114,11 +120,14 @@ function aprovar(valor, nome) {
 				</div>
 				<div class="pop-up-excluir" id="notificar">
 					<div class="excluir-txt" style="background-color: #c7c7c7">
-						<form style="display: inline-block; text-align: center; margin-top: -2px;" >
+						<form method="post" action="conexao_adm/enviarEmail.php" style="display: inline-block; text-align: center; margin-top: -2px;" >
 							Escreva o texto da notificação que será enviado para o candidato
-							<textarea name="mensagem" placeholder="Escreva uma mensagem"></textarea>
+							<input type="hidden" name="id_email" id="id_email">
+							<input type="hidden" name="email_enviara" id="email_enviar">
+							<input type="hidden" name="nome_emaila" id="nome_email">
+							<textarea  required="" name="mensagem" placeholder="Escreva uma mensagem"></textarea>
 							<button type="submit" class="submit" style="margin-top: 10px;">Enviar</button>
-							<button class="reset" onclick="document.getElementById('notificar').style.display='none'">Cancelar</button>
+							<button class="reset" type="reset" onclick="document.getElementById('notificar').style.display='none'">Cancelar</button>
 						</form>
 					</div>
 				</div>
@@ -262,7 +271,7 @@ function aprovar(valor, nome) {
 											    	<td> <?= $usuariosAprovado["data_cadastro"] ?> - <?= $usuariosAprovado["hora_cadastro"] ?></td>
 												    <td>
 												    	<div class="botoes">
-													    	<i class="fas fa-comments" onclick="document.getElementById('notificar').style.display='flex'" title="Notificar o candidato"></i>
+													    	<i class="fas fa-comments" onclick="document.getElementById('notificar').style.display='flex';enviarEmail('<?= $usuariosAprovado["id"] ?>', '<?= $usuariosAprovado["email"] ?>', '<?= $usuariosAprovado["nome"] ?>')" title="Notificar o candidato"></i>
 													    	<i class="far fa-trash-alt" onclick="document.getElementById('excluir').style.display='flex';aprovar(<?= $usuariosAprovado["id"] ?>,'<?= $usuariosAprovado["nome"] ?>')" title="Excluir o candidato"></i>
 													    	<i class="fas fa-edit" onclick="location.href = 'adm_sindico_editar_form.php?idh=<?= $usuariosAprovado["id"] ?>';" title="Editar informações do candidato"></i>
 												    	</div>

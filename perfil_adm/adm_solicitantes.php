@@ -31,7 +31,12 @@ function aprovar(valor, nome) {
     document.getElementById('reprovado').value = valor;
     document.getElementById('question').innerHTML = nome;
 
-    
+}
+
+function enviarEmail(id, email, nome) {
+    document.getElementById('nome_email').value = nome;
+    document.getElementById('email_enviar').value = email;
+    document.getElementById('id_email').value = id;
 }
 
 </script>
@@ -89,7 +94,10 @@ function aprovar(valor, nome) {
 					<div class="excluir-txt" style="background-color: #c7c7c7">
 						<form style="display: inline-block; text-align: center; margin-top: -2px;" >
 							Escreva o texto da notificação que será enviado para o solicitante
-							<textarea name="mensagem" placeholder="Escreva uma mensagem"></textarea>
+							<input type="hidden" name="id_email" id="id_email">
+							<input type="hidden" name="email_enviara" id="email_enviar">
+							<input type="hidden" name="nome_emaila" id="nome_email">
+							<textarea  required="" name="mensagem" placeholder="Escreva uma mensagem"></textarea>
 							<button type="submit" class="submit" style="margin-top: 10px;">Enviar</button>
 							<button class="reset" onclick="document.getElementById('notificar').style.display='none'">Cancelar</button>
 						</form>
@@ -164,7 +172,7 @@ function aprovar(valor, nome) {
 											    	<td><?= $usuariosSolicitante['data_cadastro'] ?> - <?= $usuariosSolicitante['hora_cadastro'] ?></td>
 												    <td>
 												    	<div class="botoes">
-													    	<i class="fas fa-comments" onclick="document.getElementById('notificar').style.display='flex'" title="Notificar o solicitante"></i>
+													    	<i class="fas fa-comments" onclick="document.getElementById('notificar').style.display='flex';enviarEmail('<?= $usuariosSolicitante["id"] ?>', '<?= $usuariosSolicitante["email"] ?>', '<?= $usuariosSolicitante["nome"] ?>')" title="Notificar o solicitante"></i>
 													    	<i class="far fa-trash-alt" onclick="document.getElementById('excluir').style.display='flex';aprovar(<?= $usuariosSolicitante["id"] ?>,'<?= $usuariosSolicitante["nome"] ?>')" title="Excluir o solicitante"></i>
 													    	<i class="fas fa-edit" onclick="location.href = 'adm_solicitante_editar_form.php?idh=<?= $usuariosSolicitante["id"] ?>';" title="Editar informações do solicitante"></i>
 												    	</div>

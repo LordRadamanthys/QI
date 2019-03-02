@@ -3,14 +3,13 @@ require('../php/conexao.php');
 //include('conexao.php');
 $con = new Banco();
 
-	if(!empty($_POST['nome_soli'])  && !empty($_POST['senha_cond']) && !empty($_POST['e_mail_cond'])){
-        //usuario sindico
+	
 		$nome = isset($_POST['nome_soli']) ? $_POST['nome_soli'] : '';
 		$senha = isset($_POST['senha_cond']) ? base64_encode(sha1('tomaLixo'. $_POST['senha_cond'])) : '';
 		$email = isset($_POST['e_mail_cond']) ? strtolower($_POST['e_mail_cond']) : '';
         $tel_cel = isset($_POST['tel_cel_cond']) ? $_POST['tel_cel_cond'] : '';
         $nivel = isset($_POST['nivel']) ? $_POST['nivel'] : '';
-        
+        $id = $_POST['id'];
         //dados
         $cpf = isset($_POST['cpf_soli']) ? $_POST['cpf_soli'] : '';
         $funcao_soli = isset($_POST['funcao_soli']) ? $_POST['funcao_soli'] : '';
@@ -26,26 +25,12 @@ $con = new Banco();
         $complemento_soli = isset($_POST['complemento_soli']) ? $_POST['complemento_soli'] : '';
         $numero_soli = isset($_POST['numero_soli']) ? $_POST['numero_soli'] : '';
         
-        //foto
-        $foto=$_FILES['Img_perfil_soli']['name'];
-        $foto_nome = $_FILES['Img_perfil_soli']['name'];
-        $foto_temp = $_FILES['Img_perfil_soli']['tmp_name'];
-        $foto_tipo = $_FILES['Img_perfil_soli']['type'];
-        $array_foto = array($foto_nome,$foto_temp,$foto_tipo);
-        date_default_timezone_set('America/Sao_Paulo');
-        $data =date ("d-m-Y");
-        $hora = date('H:i:s');
+
 
         $liberado = "sim";
-        $sqlSoli = "INSERT INTO solicitante_cond ( nome, senha, email, celular, cpf, funcao, tel_fixo, data_aniversario, sexo, cep, pais, estado, cidade, endereco, complemento, numero, nivel,liberado,data_cadastro,hora_cadastro) VALUES ('$nome','$senha','$email','$tel_cel','$cpf','$funcao_soli','$tel_fix_soli','$data_aniv_soli','$sexo','$cep_soli','$pais_soli','$estado_soli','$cidade_soli','$endereco_soli','$complemento_soli','$numero_soli','$nivel','$liberado','$data','hora')";
+        $sqlSoli = "UPDATE solicitante_cond SET nome='$nome', senha='$senha', email='$email', celular='$tel_cel', cpf='$cpf', funcao='$funcao_soli', tel_fixo='$tel_fix_soli', data_aniversario='$data_aniv_soli', sexo='$sexo', cep='$cep_soli', pais='$pais_soli', estado='$estado_soli', cidade='$cidade_soli', endereco='$endereco_soli', complemento='$complemento_soli', numero='$numero_soli',liberado='$liberado' WHERE id='$id'";
         
-        $key = $con->verificaEmail($email);
-        if($key[0]==false){
-            echo $key[1];
-        }else{
-        $con->cadastroCondominioSolicitante($sqlSoli, $array_foto);
-        }
-	}else{
-		die("erro");
-	}
+        
+     $con->AtualizarSolicitante($sqlSoli);
+    
 ?>

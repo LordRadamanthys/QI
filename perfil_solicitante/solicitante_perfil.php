@@ -122,7 +122,7 @@ $dados_cod = $usu[1];
 													<div class="quadro-sobre quadro-experiencia">
 														<div class="titulo-quadro">
 															Dados Solicitante
-															<a href="solicitante_editar_form.html" title="Editar dados">
+															<a href="solicitante_editar_form.php" title="Editar dados">
 																<i class="fas fa-user-edit"></i>
 															</a>
 														</div>
@@ -137,7 +137,7 @@ $dados_cod = $usu[1];
 													<div class="quadro-sobre quadro-experiencia">
 														<div class="titulo-quadro" onclick="AbrirContCond()">
 															Condomínios
-															<a href="solicitante_condominio_form.html" title="Adicionar um condomínio">
+															<a href="solicitante_condominio_form.php" title="Adicionar um condomínio">
 																<i class="fas fa-plus-circle"></i>
 															</a>
 															<a href="solicitante_painel_condominio.html" title="Editar condomínio">
@@ -164,7 +164,7 @@ $dados_cod = $usu[1];
 													<div class="quadro-sobre quadro-experiencia">
 														<div class="titulo-quadro" onclick="AbrirContVaga()">
 															Vagas 
-															<a href="solicitante_vaga_form.html" title="Adicionar uma vaga">
+															<a href="solicitante_vaga_form.php" title="Adicionar uma vaga">
 																<i class="fas fa-plus-circle"></i>
 															</a>
 															<a href="solicitante_painel_vagas.html" title="Editar vagas">

@@ -1,13 +1,10 @@
 <?php
 require('../php/conexao.php');
-//include('conexao.php');
 $con = new Banco();
 $con->verificaLoginSoli();
-
 $usu = $con->listarDadosSolicitante($_SESSION['UsuarioID']);
 $vagas= $con->listarVagasCondominios($_SESSION['UsuarioID']);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +37,14 @@ $vagas= $con->listarVagasCondominios($_SESSION['UsuarioID']);
   			window.history.back();
 		}
   	</script>
+	<script>
+		function aprovar(valor, nome, cond) {
+		    document.getElementById('aprovado').value = valor;
+		    document.getElementById('question').innerHTML = nome;
+		    document.getElementById('condi').innerHTML = cond;
+
+		}
+	</script>
 </head>
 <body>
 
@@ -113,11 +118,13 @@ $vagas= $con->listarVagasCondominios($_SESSION['UsuarioID']);
 					</div>
 					<div class="pop-up-excluir" id="excluir">
 						<div class="excluir-txt">
-							Você tem certeza que quer excluir a vaga (Nome da vaga) do (Condomínio)?
-							<form>
+							Você tem certeza que quer excluir a vaga <i><span id="question"></span></i> do <span id="condi"></span>?
+							<form action="../paginasPHP/excluirVaga.php" method="post">
+								<input type="hidden" id="aprovado" name="aprovado">
 								<button type="submit" class="submit" style="margin-bottom: 10px">Sim</button>
 								<button type="reset" class="reset" onclick="document.getElementById('excluir').style.display='none'">Não</button>
 							</form>
+							
 						</div>
 					</div>
 					<div class="linha-conteudo">
@@ -150,8 +157,8 @@ $vagas= $con->listarVagasCondominios($_SESSION['UsuarioID']);
                              $nome_cond = $con->listarCondominiosPerfil($vagas['id_condominio']);
                     ?>
 										<div class="quadro" >
-											<a href="solicitante_editar_vaga.php" title="Editar vaga"><i class="fas fa-user-edit"></i></a>
-											<i class="fas fa-times-circle" title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'"></i>
+											<a href="solicitante_editar_vaga.php?idh=<?= $vagas['id'] ?>" title="Editar vaga"><i class="fas fa-user-edit"></i></a>
+											<i class="fas fa-times-circle" title="Excluir vaga" onclick="document.getElementById('excluir').style.display='flex'; aprovar(<?=  $vagas['id'] ?>,'<?=  $vagas['posicao'] ?>', '<?=  $nome_cond['nome_cond'] ?>')"></i>
 											<a href="solicitante_info_vaga.php?h=<?= $vagas['id_condominio'] ?>&v=<?= $vagas['id'] ?>">
 												<div class="quadro-img" style="background-image: url(../src/usuarios_cond/<?= $nome_cond['id']?>/foto/perfil.jpg);"></div>
 												<div class="quadro-txt"><div><?= $vagas['posicao'] ?><hr><?= $nome_cond['nome_cond'] ?></div></div>
@@ -172,8 +179,8 @@ $vagas= $con->listarVagasCondominios($_SESSION['UsuarioID']);
 			</div>
 		</div>
 	</main>
-	<script>
+	<!--script>
 alert("Versão de testes!!!!!!!");
-</script>
+</script-->
 </body>
 </html>

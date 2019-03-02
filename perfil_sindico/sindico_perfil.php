@@ -4,7 +4,7 @@ require('../php/conexao.php');
 $con = new Banco();
 $con->verificaLoginCandidato();
 
-$usu    = $con->listarDadosSind($_SESSION['UsuarioID']);
+$usu  = $con->listarDadosSind($_SESSION['UsuarioID']);
 $dados_usuario = $usu[0];
 $dados_usuario_exp = $usu[1];
 $dados_usuario_esco = $usu[2];
@@ -147,7 +147,7 @@ $dados_usuario_esco = $usu[2];
 												<div class="linha-conteudo">
 													<div class="quadro-sobre">
 														<div class="titulo-quadro">Vídeo apresentação 
-															<a href="sindico_editar_form.html">
+															<a href="sindico_editar_form.php?idh=<?= $dados_usuario['id'] ?>">
 															<i class="fas fa-user-edit"></i>
 														</a></div>
 														<div class="text-quadro">
@@ -195,7 +195,7 @@ $dados_usuario_esco = $usu[2];
 													<div class="quadro-sobre quadro-experiencia">
 														<div class="titulo-quadro" onclick="AbrirContProf()">
 															Experiência profissional 
-															<a href="sindico_editar_form.html">
+															<a href="sindico_editar_form.php?idh=<?= $dados_usuario['id'] ?>">
 																<i class="fas fa-user-edit"></i>
 															</a>
 														</div>
